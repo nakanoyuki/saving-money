@@ -11,10 +11,11 @@ import Header from "./components/Header";
 import Login from "./components/account/Login";
 import SignUp from "./components/account/SignUp";
 import Mypage from "./components/account/Mypage";
+import { AuthProvider } from "./feature/auth/provider/AuthProvider";
 
 function App() {
   return (
-    <div className="App">
+    <AuthProvider>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
@@ -26,7 +27,7 @@ function App() {
         <Route path="/spendingreport" element={<SpendingMoneyReport />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
-    </div>
+    </AuthProvider>
   );
 }
 

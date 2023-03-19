@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent, useContext } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 
 const SignUp = () => {
-  const [signupEmail, setSignupEmail] = useState("");
-  const [signupPassword, setSignupPassword] = useState("");
+  const { user } = useAuthContext()
+  const [signupEmail, setSignupEmail] = useState<string>("");
+  const [signupPassword, setSignupPassword] = useState<string>("");
   const navigate = useNavigate();
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
@@ -19,12 +21,6 @@ const SignUp = () => {
       alert("正しく入力してください");
     }
   };
-  const [user, setUser] = useState("");
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-  }, []);
   return (
     <>
       {user ? (
@@ -55,7 +51,9 @@ const SignUp = () => {
                 />
               </div>
               <button>登録する</button>
-              <p>ログインは<Link to="/login/">こちら</Link></p>
+              <p>
+                ログインは<Link to="/login/">こちら</Link>
+              </p>
             </form>
           </>
         </>
