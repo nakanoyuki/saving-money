@@ -7,6 +7,7 @@ import React, { useEffect, useState, FormEvent } from "react";
 import { auth } from "../../firebase";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
+import LayoutAuth from "../templetes/LayoutAuth";
 
 const Login = () => {
   const { user } = useAuthContext()
@@ -29,7 +30,7 @@ const Login = () => {
           <Navigate to="/" />
         </>
       ) : (
-        <>
+        <LayoutAuth>
           <h2>ログイン</h2>
           <form onSubmit={handleSubmit}>
             <div>
@@ -55,7 +56,7 @@ const Login = () => {
               新規登録は<Link to="/signup">こちら</Link>
             </p>
           </form>
-        </>
+        </LayoutAuth>
       )}
     </>
   );
