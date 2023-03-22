@@ -3,6 +3,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
+import { css } from "@emotion/react";
 
 const Header = () => {
   const { user } = useAuthContext();
@@ -14,7 +15,7 @@ const Header = () => {
   };
   return (
     <>
-      <div>Header</div>
+      <div>収支管理APP</div>
       {!user ? (
         <></>
       ) : (

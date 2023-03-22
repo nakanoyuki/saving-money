@@ -9,7 +9,8 @@ const LayoutAuth = (props: Props) => {
   return (
     <>
       <Header />
-      {children}
+      <main>{children}</main>
+
       <Footer />
     </>
   );
