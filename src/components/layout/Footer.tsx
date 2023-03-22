@@ -1,8 +1,14 @@
-import React from 'react'
+import { css } from "@emotion/react";
 
+
+const footercenter=css`
+  text-align: center;
+  border-top: solid 1px #d9d9d9;
+  padding: 10px 0;
+`
 const Footer = () => {
   return (
-    <div>Powered by Nakano</div>
+    <div css={footercenter}>Powered by Nakano</div>
   )
 }
 

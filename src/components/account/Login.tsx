@@ -1,8 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState, FormEvent } from "react";
 import { auth } from "../../firebase";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -11,23 +7,23 @@ import LayoutAuth from "../templetes/LayoutAuth";
 import { css } from "@emotion/react";
 
 const authBorder = css`
-  border: solid 1px #d9d9d9;
-  width: 500px;
+  width: 420px;
   margin: auto;
-  padding: 2rem;
+  padding: 3rem;
   background: #fff;
 `;
 
 const h2ttl = css`
-  font-size: 1.4rem;
+  font-size: 1.8rem;
+  font-weight: 700;
   text-align: center;
-  margin: 0 auto 1rem;
+  margin: 0 auto 2rem;
 `;
 const inputarea = css`
   width: 100%;
   border: solid 1px #d9d9d9;
-  padding: 10px 0 8px 4px;
-  margin: 0 0 20px;
+  padding: 14px 0 12px 4px;
+  margin: 0 0 2rem;
 `;
 
 const authButton = css`
@@ -35,8 +31,20 @@ const authButton = css`
   padding: 10px;
   border: none;
   background: #4169e1;
+  color: #fff;
   border-radius: 5px;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  margin: 2rem auto 0;
+  cursor: pointer;
+`;
+
+const link = css`
+  text-align: center;
+  margin: 3rem 0 0 0;
+  a {
+    font-size: 1.4rem;
+    color: #4169e1;
+  }
 `;
 
 const Login = () => {
@@ -83,8 +91,8 @@ const Login = () => {
               />
 
               <button css={authButton}>ログイン</button>
-              <p>
-                新規登録は<Link to="/signup">こちら</Link>
+              <p css={link}>
+                <Link to="/signup">新規登録はこちら</Link>
               </p>
             </form>
           </div>

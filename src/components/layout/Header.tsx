@@ -5,6 +5,15 @@ import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 import { css } from "@emotion/react";
 
+const header = css`
+  display: flex;
+  background: #4169e1;
+  height: 50px;
+  width: 100%;
+`;
+const logoarea = css`
+  color: #fff;
+`;
 const Header = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
@@ -14,8 +23,8 @@ const Header = () => {
     navigate("/login/");
   };
   return (
-    <>
-      <div>収支管理APP</div>
+    <div className="header" css={header}>
+      <div css={logoarea}>収支管理APP</div>
       {!user ? (
         <></>
       ) : (
@@ -31,7 +40,7 @@ const Header = () => {
           <button onClick={logout}>ログアウト</button>
         </>
       )}
-    </>
+    </div>
   );
 };
 
