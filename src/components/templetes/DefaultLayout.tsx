@@ -4,7 +4,11 @@ import Header from "../layout/Header";
 import SideBar from "../layout/SideBar";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
+import { css } from "@emotion/react";
 
+const mainheight=css`
+  height: 86vh;
+`
 const DefaultLayout = () => {
   const { user } = useAuthContext();
   return (
@@ -17,7 +21,10 @@ const DefaultLayout = () => {
         <>
           <Header />
           <SideBar />
-          <Outlet />
+          <main css={mainheight}>
+            <Outlet />
+          </main>
+
           <Footer />
         </>
       )}

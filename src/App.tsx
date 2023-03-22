@@ -1,14 +1,14 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import "./App.css";
-import Home from "./components/Home";
-import HowtoUse from "./components/HowtoUse";
+import Home from "./pages/Home";
+import HowtoUse from "./pages/HowtoUse";
 import NoMatch from "./components/NoMatch";
-import SpendingMoneyForm from "./components/SpendingMoneyForm";
-import SpendingMoneyTable from "./components/SpendingMoneyTable";
-import SpendingMoneyReport from "./components/SpendingMoneyReport";
-import Login from "./components/account/Login";
-import SignUp from "./components/account/SignUp";
-import Mypage from "./components/account/Mypage";
+import SpendingMoneyForm from "./pages/SpendingMoneyForm";
+import SpendingMoneyTable from "./pages/SpendingMoneyTable";
+import SpendingMoneyReport from "./pages/SpendingMoneyReport";
+import Login from "./components/auth/Login";
+import SignUp from "./components/auth/SignUp";
+import Mypage from "./components/auth/Mypage";
 import { AuthProvider } from "./feature/auth/provider/AuthProvider";
 import DefaultLayout from "./components/templetes/DefaultLayout";
 
