@@ -14,6 +14,11 @@ export type Props = {
   memo: string | undefined;
   setMemo: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
+
 export type List = {
   postList: Props[];
+};
+
+export type ChildrenProps = {
+  children: React.ReactNode;
 };

@@ -2,18 +2,15 @@ import React from "react";
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
 import { css } from "@emotion/react";
+import { ChildrenProps } from "../../type/type";
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const mainheight=css`
+const mainheight = css`
   height: 88vh;
   display: flex;
   align-items: center;
   justify-content: center;
-`
-const LayoutAuth = (props: Props) => {
+`;
+const LayoutAuth = (props: ChildrenProps) => {
   const { children } = props;
   return (
     <>
