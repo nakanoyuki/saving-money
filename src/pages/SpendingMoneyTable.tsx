@@ -38,7 +38,7 @@ const SpendingMoneyTable = () => {
         {postList.map((post) => {
           return (
             <li key={uuid()}>
-              {format(post.date.toDate(), "yyyy年M月d日")}
+              {format(post.date.toDate(), "yy.0M.d")}
               <p>{post.amount}</p>
               <p>{post.paymentsItem}</p>
               <p>{post.category}</p>
