@@ -1,4 +1,7 @@
 import { css } from "@emotion/react";
+import { collection, getDocs } from "firebase/firestore";
+import { useEffect } from "react";
+import { db } from "../firebase";
 
 const pageArea = css`
   padding: 30px 1% 100px 200px;
@@ -6,7 +9,7 @@ const pageArea = css`
 const SpendingMoneyReport = () => {
   return (
     <div className="pageArea" css={pageArea}>
-      <h2>収支登録</h2>
+      <h2>収支一覧</h2>
     </div>
   );
 };
