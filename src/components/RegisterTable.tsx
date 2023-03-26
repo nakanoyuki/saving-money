@@ -5,20 +5,22 @@ import { List } from "../type/type";
 
 const RegisterTable = ({ postList }: List) => {
   return (
-    <div>
-      {postList.map((post) => {
-        return (
-          <li key={uuid()}>
-            {format(post.date.toDate(), "yy.0M.d")}
-            <p>{post.amount}</p>
-            <p>{post.paymentsItem}</p>
-            <p>{post.category}</p>
-            <p>{post.method}</p>
-            <p>{post.memo}</p>
-          </li>
-        );
-      })}
-    </div>
+    <ul>
+      {postList.map(
+        ({ date, amount, paymentsItem, category, method, memo }) => {
+          return (
+            <li key={uuid()}>
+              {format(date.toDate(), "yy.0M.d")}
+              <p>{amount}</p>
+              <p>{paymentsItem}</p>
+              <p>{category}</p>
+              <p>{method}</p>
+              <p>{memo}</p>
+            </li>
+          );
+        }
+      )}
+    </ul>
   );
 };
 

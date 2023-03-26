@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import RegisterForm from "../components/RegisterForm";
 
 const pageArea = css`
   padding: 50px 1% 100px 200px;

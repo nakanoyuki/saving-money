@@ -17,49 +17,28 @@ const sideBar = css`
     font-size: 1.4rem;
   }
 `;
+
+const SideBarItem = ({ link, content }: { link: string; content: string }) => {
+  return (
+    <NavLink
+      className={({ isActive, isPending }) => {
+        return isActive ? "active" : isPending ? "pending" : "";
+      }}
+      to={link}
+    >
+      {content}
+    </NavLink>
+  );
+};
+
 const SideBar = () => {
   return (
     <div className="sideBar" css={sideBar}>
-      <NavLink
-        className={({ isActive, isPending }) => {
-          return isActive ? "active" : isPending ? "pending" : "";
-        }}
-        to="/"
-      >
-        ホーム
-      </NavLink>
-      <NavLink
-        className={({ isActive, isPending }) => {
-          return isActive ? "active" : isPending ? "pending" : "";
-        }}
-        to="/howtouse"
-      >
-        使い方
-      </NavLink>
-      <NavLink
-        className={({ isActive, isPending }) => {
-          return isActive ? "active" : isPending ? "pending" : "";
-        }}
-        to="/spendingmoneyform"
-      >
-        収支入力
-      </NavLink>
-      <NavLink
-        className={({ isActive, isPending }) => {
-          return isActive ? "active" : isPending ? "pending" : "";
-        }}
-        to="/spendingmoneytable"
-      >
-        収支一覧
-      </NavLink>
-      <NavLink
-        className={({ isActive, isPending }) => {
-          return isActive ? "active" : isPending ? "pending" : "";
-        }}
-        to="/spendingreport"
-      >
-        収支レポート
-      </NavLink>
+      <SideBarItem link="/" content="ホーム"/>
+      <SideBarItem link="/howtouse" content="使い方"/>
+      <SideBarItem link="/spendingmoneyform" content="収支入力"/>
+      <SideBarItem link="/spendingmoneytable" content="収支一覧"/>
+      <SideBarItem link="/spendingreport" content="収支レポート"/>
     </div>
   );
 };

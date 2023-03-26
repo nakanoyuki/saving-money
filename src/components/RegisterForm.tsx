@@ -1,62 +1,69 @@
-import { SetStateAction } from "react";
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import "react-datepicker/dist/react-datepicker.css";
-import { Props } from "../type/type";
+import { FormType } from "../type/type";
 
-const RegisterForm = ({
-  date,
-  setDate,
-  Today,
-  amount,
-  setAmount,
-  paymentsItem,
-  setPaymentsItem,
-  category,
-  setCategory,
-  method,
-  setMethod,
-  memo,
-  setMemo,
-}: Props) => {
+const RegisterForm = () => {
   // データ
-  const paymentsdata = ["--選択--", "支出", "収入"];
-  const categoriesdata = ["--選択--", "水道代", "その他"];
+  const paymentsdata = ["支出", "収入"];
+  const categoriesdata = ["水道代", "その他"];
   const methodsdata = ["現金", "クレジット", "paypay"];
 
-  const onAddLists = async () => {
-    await addDoc(collection(db, "lists"), {
-      date: date,
-      amount: amount,
-      paymentsItem: paymentsItem,
-      category: category,
-      method: method,
-      memo: memo,
-    });
+  const [isTaxButtonDisabled, setIsTaxButtonDisabled] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    watch,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm<FormType>({
+    defaultValues: {
+      date: new Date(),
+      amount: 0,
+      paymentsItem: "--選択--",
+      category: "--選択--",
+      method: "--選択--",
+      memo: "",
+    },
+  });
+
+  const onSubmit = async (data: FormType) => {
+    await addDoc(collection(db, "lists"), data);
+    reset();
+  };
+
+  const handleTaxButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const currentAmount = getValues("amount");
+    setValue("amount", Math.floor(currentAmount * 1.1));
+    setIsTaxButtonDisabled(true);
   };
 
   return (
     <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          onAddLists();
-        }}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label>購入日時</label>
-        <DatePicker
-          dateFormat="yyyy/MM/dd"
-          selected={date}
-          locale="ja"
-          onChange={(selectedDate) => setDate(selectedDate || Today)}
+        <Controller
+          control={control}
+          name="date"
+          render={({ field }) => (
+            <DatePicker
+              {...field}
+              dateFormat="yyyy/MM/dd"
+              selected={watch("date")}
+              locale="ja"
+            />
+          )}
         />
-
         <label>収支</label>
-        <select
-          value={paymentsItem}
-          onChange={(e) => setPaymentsItem(e.target.value)}
-        >
+        <select {...register("paymentsItem")}>
+          <option disabled>--選択--</option>
           {paymentsdata.map((payment) => (
             <option key={payment} value={payment}>
               {payment}
@@ -65,7 +72,8 @@ const RegisterForm = ({
         </select>
 
         <label>勘定科目</label>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select {...register("category")}>
+          <option disabled>--選択--</option>
           {categoriesdata.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -74,7 +82,8 @@ const RegisterForm = ({
         </select>
 
         <label>支払い方法</label>
-        <select value={method} onChange={(e) => setMethod(e.target.value)}>
+        <select {...register("method")}>
+          <option disabled>--選択--</option>
           {methodsdata.map((method) => (
             <option key={method} value={method}>
               {method}
@@ -83,19 +92,23 @@ const RegisterForm = ({
         </select>
 
         <label>金額</label>
-        <input type="number" onChange={(e) => setAmount(e.target.value)} />
+        <input {...register("amount")} type="number" />
 
-        {/* <label>税率</label>
-        <button>10%</button>
-        <button>なし</button> */}
+        <label>税率</label>
+        <button disabled={isTaxButtonDisabled} onClick={handleTaxButton}>
+          10%
+        </button>
+        <button>なし</button>
 
         <label>備考</label>
         <textarea
+          {...register("memo", { required: "memo is required" })}
           id="textarea"
           placeholder="備考"
-          onChange={(e) => setMemo(e.target.value)}
         ></textarea>
+        <p style={{ color: "red" }}>{errors.memo?.message}</p>
         <button type="submit">登録する</button>
+        <button onClick={() => reset()}>リセットする</button>
       </form>
     </>
   );
