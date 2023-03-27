@@ -13,12 +13,20 @@ const DefaultLayout = () => {
   const { user } = useAuthContext();
   return (
     <>
-      <Header />
-      <SideBar />
-      <main css={mainheight}>
-        <Outlet />
-      </main>
-      <Footer />
+      {user ? (
+        <>
+          <Header />
+          <SideBar />
+          <main css={mainheight}>
+            <Outlet />
+          </main>
+          <Footer />
+        </>
+      ) : (
+        <>
+          <Navigate to="/login" />
+        </>
+      )}
     </>
   );
 };

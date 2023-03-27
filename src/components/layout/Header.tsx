@@ -4,6 +4,7 @@ import { auth } from "../../firebase";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 import { css } from "@emotion/react";
+import SignOut from "../auth/SignOut";
 
 const header = css`
   display: flex;
@@ -35,7 +36,7 @@ const Header = () => {
           >
             マイページ
           </NavLink>
-          <button onClick={logout}>ログアウト</button>
+          <SignOut />
         </>
       ) : (
         <></>

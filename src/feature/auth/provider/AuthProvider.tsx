@@ -22,22 +22,27 @@ export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<GlobalAuthState>(initialState);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const value = {
+    user,
+    loading,
+  };
+
   useEffect(() => {
-    try {
-      const auth = getAuth();
-      return onAuthStateChanged(auth, (user) => {
-        setUser({
-          user,
-        });
-        setLoading(false);
-      });
-    } catch (error) {
-      setUser(initialState);
-      throw error;
-    }
+    const auth = getAuth();
+    const unsubscribed = onAuthStateChanged(auth, (user) => {
+      setUser({ user });
+      setLoading(false);
+    });
+    return () => {
+      unsubscribed();
+    };
   }, []);
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={user}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuthContext = () => useContext(AuthContext);
