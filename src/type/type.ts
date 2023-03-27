@@ -1,10 +1,3 @@
-export type Props = {
-  // eslint-disable-next-line
-  date: any;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
-  Today: Date;
-};
-
 export type List = {
   postList: FormType[];
 };
@@ -16,6 +9,7 @@ export type ChildrenProps = {
 export type FormType = {
   date: any;
   amount: number;
+  taxamount: number;
   paymentsItem: string;
   category: string;
   method: string;

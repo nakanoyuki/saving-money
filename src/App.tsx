@@ -8,7 +8,7 @@ import SpendingMoneyTable from "./pages/SpendingMoneyTable";
 import SpendingMoneyReport from "./pages/SpendingMoneyReport";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
-import Mypage from "./components/auth/Mypage";
+import Mypage from "./pages/Mypage";
 import { AuthProvider } from "./feature/auth/provider/AuthProvider";
 import DefaultLayout from "./components/templetes/DefaultLayout";
 

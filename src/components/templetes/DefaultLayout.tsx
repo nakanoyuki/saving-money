@@ -6,28 +6,19 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 import { css } from "@emotion/react";
 
-const mainheight=css`
+const mainheight = css`
   height: 86vh;
-`
+`;
 const DefaultLayout = () => {
   const { user } = useAuthContext();
   return (
     <>
-      {!user ? (
-        <>
-          <Navigate to="/login" />
-        </>
-      ) : (
-        <>
-          <Header />
-          <SideBar />
-          <main css={mainheight}>
-            <Outlet />
-          </main>
-
-          <Footer />
-        </>
-      )}
+      <Header />
+      <SideBar />
+      <main css={mainheight}>
+        <Outlet />
+      </main>
+      <Footer />
     </>
   );
 };

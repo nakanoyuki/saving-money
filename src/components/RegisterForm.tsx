@@ -12,7 +12,6 @@ const RegisterForm = () => {
   const categoriesdata = ["水道代", "その他"];
   const methodsdata = ["現金", "クレジット", "paypay"];
 
-  const [isTaxButtonDisabled, setIsTaxButtonDisabled] = useState(false);
   const {
     register,
     handleSubmit,
@@ -26,6 +25,7 @@ const RegisterForm = () => {
     defaultValues: {
       date: new Date(),
       amount: 0,
+      taxamount: 0,
       paymentsItem: "--選択--",
       category: "--選択--",
       method: "--選択--",
@@ -38,11 +38,20 @@ const RegisterForm = () => {
     reset();
   };
 
+  // 税率計算ボタン
+  const [result, setResult] = useState<number>(0);
+  const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
+
   const handleTaxButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const currentAmount = getValues("amount");
-    setValue("amount", Math.floor(currentAmount * 1.1));
-    setIsTaxButtonDisabled(true);
+    const result = setResult(Math.floor(currentAmount * 0.1));
+    setBtnDisabled(!btnDisabled);
+  };
+  const handleNotTaxButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const result = setResult(0);
+    setBtnDisabled(!btnDisabled);
   };
 
   return (
@@ -93,12 +102,16 @@ const RegisterForm = () => {
 
         <label>金額</label>
         <input {...register("amount")} type="number" />
+        <p>金額: {watch("amount")}円</p>
+        <p>税金: {result}円</p>
 
         <label>税率</label>
-        <button disabled={isTaxButtonDisabled} onClick={handleTaxButton}>
+        <button disabled={btnDisabled} onClick={handleTaxButton}>
           10%
         </button>
-        <button>なし</button>
+        <button disabled={!btnDisabled} onClick={handleNotTaxButton}>
+          なし
+        </button>
 
         <label>備考</label>
         <textarea

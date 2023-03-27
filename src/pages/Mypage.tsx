@@ -1,16 +1,11 @@
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
+import { useAuthContext } from "../feature/auth/provider/AuthProvider";
+import SignOut from "../components/auth/SignOut";
 
 const Mypage = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
-  const logout = async () => {
-    await signOut(auth);
-    navigate("/login/");
-  };
   return (
     <>
       {!user ? (
@@ -19,7 +14,7 @@ const Mypage = () => {
         <>
           <h1>マイページ</h1>
           <p>{user?.email}</p>
-          <button onClick={logout}>ログアウト</button>
+          <SignOut />
         </>
       )}
     </>

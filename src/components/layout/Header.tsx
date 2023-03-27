@@ -25,9 +25,7 @@ const Header = () => {
   return (
     <div className="header" css={header}>
       <div css={logoarea}>収支管理APP</div>
-      {!user ? (
-        <></>
-      ) : (
+      {user ? (
         <>
           <NavLink
             className={({ isActive, isPending }) => {
@@ -39,6 +37,8 @@ const Header = () => {
           </NavLink>
           <button onClick={logout}>ログアウト</button>
         </>
+      ) : (
+        <></>
       )}
     </div>
   );
