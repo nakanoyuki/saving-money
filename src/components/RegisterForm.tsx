@@ -5,8 +5,6 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import "react-datepicker/dist/react-datepicker.css";
 import { FormType } from "../type/type";
-import { getAuth } from "@firebase/auth";
-import { useAuthContext } from "../feature/auth/provider/AuthProvider";
 
 const RegisterForm = () => {
   // データ

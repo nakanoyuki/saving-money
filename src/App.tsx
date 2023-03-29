@@ -11,7 +11,6 @@ import SignUp from "./components/auth/SignUp";
 import Mypage from "./pages/Mypage";
 import { AuthProvider } from "./feature/auth/provider/AuthProvider";
 import DefaultLayout from "./components/templetes/DefaultLayout";
-import { RecoilRoot } from "recoil";
 
 /** @jsxImportSource @emotion/react */
 import emotionReset from "emotion-reset";
@@ -69,7 +68,6 @@ function App() {
           }
         `}
       />
-      <RecoilRoot>
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<Login />} />
@@ -91,7 +89,6 @@ function App() {
             </Route>
           </Routes>
         </AuthProvider>
-      </RecoilRoot>
     </>
   );
 }

@@ -11,6 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@hookform/resolvers": "^3.0.0",
+    "@mui/material": "^5.11.15",
+    "@mui/styled-engine-sc": "^5.11.11",
     "@types/react-datepicker": "^4.10.0",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
@@ -25,6 +27,7 @@
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0",
     "sanitize.css": "^13.0.0",
+    "styled-components": "^5.3.9",
     "yup": "^1.0.2"
   },
   "devDependencies": {

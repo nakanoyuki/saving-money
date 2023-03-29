@@ -9,11 +9,9 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { FormType } from "../type/type";
 import { useRecoilState } from "recoil";
-import { userState } from "../components/atoms/userState";
 
 export const usePostList = () => {
   const [postList, setPostList] = useState<FormType[]>([]);
-  const [user, setUser] = useRecoilState(userState);
   useEffect(() => {
     const getLists = async () => {
       const listsRef = collection(db, "lists") as CollectionReference<FormType>;
