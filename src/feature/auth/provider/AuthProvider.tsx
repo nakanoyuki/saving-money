@@ -14,11 +14,11 @@ export type GlobalAuthState = {
 const initialState: GlobalAuthState = {
   user: undefined,
 };
-export const AuthContext = createContext<GlobalAuthState>(initialState);
+const AuthContext = createContext<GlobalAuthState>(initialState);
 
 type Props = { children: ReactNode };
 
-export const AuthProvider = ({ children }: Props) => {
+const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<GlobalAuthState>(initialState);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -46,3 +46,4 @@ export const AuthProvider = ({ children }: Props) => {
 };
 
 export const useAuthContext = () => useContext(AuthContext);
+export {AuthContext, AuthProvider}

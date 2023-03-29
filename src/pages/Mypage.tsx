@@ -4,7 +4,6 @@ import SignOut from "../components/auth/SignOut";
 
 const Mypage = () => {
   const { user } = useAuthContext();
-  const navigate = useNavigate();
 
   return (
     <>

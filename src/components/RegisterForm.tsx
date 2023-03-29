@@ -5,6 +5,8 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import "react-datepicker/dist/react-datepicker.css";
 import { FormType } from "../type/type";
+import { getAuth } from "@firebase/auth";
+import { useAuthContext } from "../feature/auth/provider/AuthProvider";
 
 const RegisterForm = () => {
   // データ
@@ -18,7 +20,6 @@ const RegisterForm = () => {
     reset,
     control,
     watch,
-    setValue,
     getValues,
     formState: { errors },
   } = useForm<FormType>({
@@ -33,9 +34,16 @@ const RegisterForm = () => {
     },
   });
 
+  // const onSubmit = async (data: FormType) => {
+  //   await addDoc(collection(db, "lists"), data);
+  //   reset();
+  // };
   const onSubmit = async (data: FormType) => {
-    await addDoc(collection(db, "lists"), data);
+    await addDoc(collection(db, "lists"), {
+     
+    });
     reset();
+    console.log(data)
   };
 
   // 税率計算ボタン

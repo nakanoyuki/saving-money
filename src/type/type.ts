@@ -7,6 +7,7 @@ export type ChildrenProps = {
 };
 
 export type FormType = {
+  uid: string;
   date: any;
   amount: number;
   taxamount: number;
@@ -14,4 +15,8 @@ export type FormType = {
   category: string;
   method: string;
   memo?: string;
+  author: {
+    username?: string | undefined;
+    id: string;
+  };
 };

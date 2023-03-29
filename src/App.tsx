@@ -11,6 +11,7 @@ import SignUp from "./components/auth/SignUp";
 import Mypage from "./pages/Mypage";
 import { AuthProvider } from "./feature/auth/provider/AuthProvider";
 import DefaultLayout from "./components/templetes/DefaultLayout";
+import { RecoilRoot } from "recoil";
 
 /** @jsxImportSource @emotion/react */
 import emotionReset from "emotion-reset";
@@ -68,25 +69,29 @@ function App() {
           }
         `}
       />
-
-      <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route element={<DefaultLayout />}>
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/howtouse" element={<HowtoUse />} />
-            <Route path="/spendingmoneyform" element={<SpendingMoneyForm />} />
-            <Route
-              path="/spendingmoneytable"
-              element={<SpendingMoneyTable />}
-            />
-            <Route path="/spendingreport" element={<SpendingMoneyReport />} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </Routes>
-      </AuthProvider>
+      <RecoilRoot>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route element={<DefaultLayout />}>
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/howtouse" element={<HowtoUse />} />
+              <Route
+                path="/spendingmoneyform"
+                element={<SpendingMoneyForm />}
+              />
+              <Route
+                path="/spendingmoneytable"
+                element={<SpendingMoneyTable />}
+              />
+              <Route path="/spendingreport" element={<SpendingMoneyReport />} />
+              <Route path="*" element={<NoMatch />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </RecoilRoot>
     </>
   );
 }

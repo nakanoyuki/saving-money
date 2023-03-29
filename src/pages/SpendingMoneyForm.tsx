@@ -14,10 +14,10 @@ const SpendingMoneyForm = () => {
   registerLocale("ja", ja);
 
   return (
-    <div className="pageArea" css={pageArea}>
-      <h2>収支登録</h2>
-      <RegisterForm />
-    </div>
+      <div className="pageArea" css={pageArea}>
+        <h2>収支登録</h2>
+        <RegisterForm />
+      </div>
   );
 };
 
