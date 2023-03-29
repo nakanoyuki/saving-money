@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 import { css } from "@emotion/react";
 import SignOut from "../auth/SignOut";
+import logo from "../../img/logo.png";
+import { Button } from "@mui/material";
 
 const header = css`
   display: flex;
-  background: #4169e1;
+  background: #fff;
   height: 50px;
   width: 100%;
 `;
@@ -25,7 +27,9 @@ const Header = () => {
   };
   return (
     <div className="header" css={header}>
-      <div css={logoarea}>収支管理APP</div>
+      <Link to="/">
+        <img src={logo} alt="収支管理APP" width="100" />
+      </Link>
       {user ? (
         <>
           <NavLink
@@ -34,7 +38,15 @@ const Header = () => {
             }}
             to="/mypage"
           >
-            マイページ
+            <Button
+              sx={{
+                color: "#4169e1",
+                fontSize: "14px",
+                fontWeight: "600",
+                ml: "4px",
+              }}
+            >
+              マイページ</Button>
           </NavLink>
           <SignOut />
         </>
