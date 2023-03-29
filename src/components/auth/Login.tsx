@@ -5,6 +5,14 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 import LayoutAuth from "../templetes/LayoutAuth";
 import { css } from "@emotion/react";
+import {
+  Box,
+  Button,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const authBorder = css`
   width: 420px;
@@ -69,33 +77,67 @@ const Login = () => {
         </>
       ) : (
         <LayoutAuth>
-          <div css={authBorder}>
-            <h2 css={h2ttl}>ログイン</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                css={inputarea}
-                placeholder="メールアドレス"
-                name="email"
-                type="email"
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-              />
+          <Container maxWidth="xs">
+            <Box
+              sx={{
+                padding: 4,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: 420,
+                background: "#fff",
+                fontSize: "16px",
+              }}
+            >
+              <Typography component="h1" variant="h4">
+                ログイン
+              </Typography>
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 1 }}
+              >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="メールアドレス"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="パスワード"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                />
 
-              <input
-                css={inputarea}
-                placeholder="パスワード"
-                name="password"
-                type="password"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-              />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 4, fontSize: 18, background: "#4169e1" }}
+                >
+                  ログイン
+                </Button>
 
-              <button css={authButton}>ログイン</button>
-              <p css={link}>
-                <Link to="/signup">新規登録はこちら</Link>
-              </p>
-            </form>
-          </div>
+                <Stack textAlign="center" fontSize="14px" color="#64A2D7">
+                  <Link to="/signup/">新規登録はこちら</Link>
+                </Stack>
+              </Box>
+            </Box>
+          </Container>
         </LayoutAuth>
       )}
     </>
