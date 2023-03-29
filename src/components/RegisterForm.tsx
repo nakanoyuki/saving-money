@@ -34,16 +34,9 @@ const RegisterForm = () => {
     },
   });
 
-  // const onSubmit = async (data: FormType) => {
-  //   await addDoc(collection(db, "lists"), data);
-  //   reset();
-  // };
   const onSubmit = async (data: FormType) => {
-    await addDoc(collection(db, "lists"), {
-     
-    });
+    await addDoc(collection(db, "lists"), data);
     reset();
-    console.log(data)
   };
 
   // 税率計算ボタン
