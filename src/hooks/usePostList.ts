@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { FormType } from "../type/type";
-import { useRecoilState } from "recoil";
+
 
 export const usePostList = () => {
   const [postList, setPostList] = useState<FormType[]>([]);

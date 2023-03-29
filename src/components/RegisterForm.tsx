@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import * as React from "react";
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import "react-datepicker/dist/react-datepicker.css";
 import { FormType } from "../type/type";
+import Button from "@mui/material/Button";
 
 const RegisterForm = () => {
   // データ
@@ -29,6 +31,7 @@ const RegisterForm = () => {
       category: "--選択--",
       method: "--選択--",
       memo: "",
+      userId: auth.currentUser?.email,
     },
   });
 
@@ -105,12 +108,20 @@ const RegisterForm = () => {
         <p>税金: {result}円</p>
 
         <label>税率</label>
-        <button disabled={btnDisabled} onClick={handleTaxButton}>
+        <Button
+          variant="contained"
+          disabled={btnDisabled}
+          onClick={handleTaxButton}
+        >
           10%
-        </button>
-        <button disabled={!btnDisabled} onClick={handleNotTaxButton}>
+        </Button>
+        <Button
+          variant="outlined"
+          disabled={!btnDisabled}
+          onClick={handleNotTaxButton}
+        >
           なし
-        </button>
+        </Button>
 
         <label>備考</label>
         <textarea
