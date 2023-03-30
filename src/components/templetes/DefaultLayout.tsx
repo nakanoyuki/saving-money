@@ -7,7 +7,8 @@ import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 import { css } from "@emotion/react";
 
 const mainheight = css`
-  height: 86vh;
+  height: 100vh;
+  padding: 100px 200px;
 `;
 const DefaultLayout = () => {
   const { user } = useAuthContext();
@@ -16,8 +17,8 @@ const DefaultLayout = () => {
       {user ? (
         <>
           <Header />
-          <SideBar />
           <main css={mainheight}>
+            <SideBar />
             <Outlet />
           </main>
           <Footer />

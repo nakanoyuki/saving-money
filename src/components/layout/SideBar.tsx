@@ -3,17 +3,17 @@ import { css } from "@emotion/react";
 
 const sideBar = css`
   background-color: rgb(61, 74, 79);
-  width: 135px;
+  width: 150px;
   height: 100%;
-  margin-top: 50px;
   position: fixed;
+  left: 0;
   z-index: 1000;
   top: 0;
-  padding: 30px 1%;
+  padding: 100px 1% 50px;
   a {
     color: #fff;
     display: block;
-    margin: 0 0 20px;
+    margin: 0 0 30px;
     font-size: 1.4rem;
   }
 `;

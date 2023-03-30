@@ -8,7 +8,7 @@ const pageArea = css`
 `;
 const SpendingMoneyReport = () => {
   return (
-    <div className="pageArea" css={pageArea}>
+    <div className="pageArea">
       <h2>収支一覧</h2>
     </div>
   );
