@@ -5,6 +5,14 @@ import { List } from "../type/type";
 import { useAuthContext } from "../feature/auth/provider/AuthProvider";
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../firebase";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 const RegisterTable = ({ postList }: List) => {
   /**
@@ -16,23 +24,54 @@ const RegisterTable = ({ postList }: List) => {
   };
   return (
     <>
-      <ul>
-        {filterPostsByEmail().map(
-          ({ date, amount, paymentsItem, category, method, memo, userId }) => {
-            return (
-              <li key={uuid()}>
-                {format(date.toDate(), "yy.0M.d")}
-                <p>{amount}</p>
-                <p>{paymentsItem}</p>
-                <p>{category}</p>
-                <p>{method}</p>
-                <p>{memo}</p>
-                <p>{userId}</p>
-              </li>
-            );
-          }
-        )}
-      </ul>
+      <TableContainer
+        sx={{
+          padding: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: 900,
+          background: "#fff",
+          fontSize: 18
+        }}
+      >
+        <Table>
+          <TableHead>
+            <TableRow >
+              <TableCell sx={{fontSize: 14}} >取引日</TableCell>
+              <TableCell sx={{fontSize: 14}}>金額</TableCell>
+              <TableCell sx={{fontSize: 14}}>収支</TableCell>
+              <TableCell sx={{fontSize: 14}}>カテゴリー</TableCell>
+              <TableCell sx={{fontSize: 14}}>支払い方法</TableCell>
+              <TableCell sx={{fontSize: 14}}>備考</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filterPostsByEmail().map(
+              ({
+                date,
+                amount,
+                paymentsItem,
+                category,
+                method,
+                memo,
+                userId,
+              }) => {
+                return (
+                  <TableRow key={uuid()}>
+                    <TableCell sx={{fontSize: 14}}>{format(date.toDate(), "yy.M.d")}</TableCell>
+                    <TableCell sx={{fontSize: 14}}>{amount}</TableCell>
+                    <TableCell sx={{fontSize: 14}}>{paymentsItem}</TableCell>
+                    <TableCell sx={{fontSize: 14}}>{category}</TableCell>
+                    <TableCell sx={{fontSize: 14}}>{method}</TableCell>
+                    <TableCell sx={{fontSize: 14}}>{memo}</TableCell>
+                  </TableRow>
+                );
+              }
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };

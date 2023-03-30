@@ -7,6 +7,7 @@ import { auth, db } from "../firebase";
 import "react-datepicker/dist/react-datepicker.css";
 import { FormType } from "../type/type";
 import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
 
 const RegisterForm = () => {
   // データ
@@ -58,7 +59,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <label>購入日時</label>
         <Controller
           control={control}
@@ -132,7 +133,7 @@ const RegisterForm = () => {
         <p style={{ color: "red" }}>{errors.memo?.message}</p>
         <button type="submit">登録する</button>
         <button onClick={() => reset()}>リセットする</button>
-      </form>
+      </Box>
     </>
   );
 };
