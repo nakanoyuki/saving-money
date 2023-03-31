@@ -61,7 +61,6 @@ const ChartGraph = () => {
 
   return (
     <>
-      <p>支出</p>
       <Line data={data} options={options} />
     </>
   );
