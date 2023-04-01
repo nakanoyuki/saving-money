@@ -4,11 +4,11 @@ import { usePostList } from "../hooks/usePostList";
 import RegisterTable from "../components/RegisterTable";
 
 const SpendingMoneyTable = () => {
-  const { postList } = usePostList();
+  const { incomepostList } = usePostList();
 
   return (
     <div className="pageArea">
-      <RegisterTable postList={postList} />
+      <RegisterTable postList={incomepostList} />
     </div>
   );
 };

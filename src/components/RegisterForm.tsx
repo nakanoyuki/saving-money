@@ -37,13 +37,20 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (data: FormType) => {
-    await addDoc(collection(db, "lists"), data);
+    if (data.paymentsItem === "収入") {
+      await addDoc(collection(db, "incomelists"), data);
+    } else if (data.paymentsItem === "支出") {
+      await addDoc(collection(db, "expenselists"), data);
+    }
+
+    setIsProcessing(false)
     reset();
   };
 
   // 税率計算ボタン
   const [result, setResult] = useState<number>(0);
   const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   const handleTaxButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -59,7 +66,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Box component="form">
         <label>購入日時</label>
         <Controller
           control={control}
@@ -131,7 +138,12 @@ const RegisterForm = () => {
           placeholder="備考"
         ></textarea>
         <p style={{ color: "red" }}>{errors.memo?.message}</p>
-        <button type="submit">登録する</button>
+        <button type="submit" disabled={isProcessing} onClick={handleSubmit((data) => {
+          setIsProcessing(true)
+          onSubmit(data)
+        })}>
+          登録する
+        </button>
         <button onClick={() => reset()}>リセットする</button>
       </Box>
     </>
