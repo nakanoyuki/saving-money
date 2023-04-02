@@ -42,9 +42,8 @@ const RegisterForm = () => {
     } else if (data.paymentsItem === "支出") {
       await addDoc(collection(db, "expenselists"), data);
     }
-
-    setIsProcessing(false)
     reset();
+    setIsProcessing(false);
   };
 
   // 税率計算ボタン
@@ -138,10 +137,14 @@ const RegisterForm = () => {
           placeholder="備考"
         ></textarea>
         <p style={{ color: "red" }}>{errors.memo?.message}</p>
-        <button type="submit" disabled={isProcessing} onClick={handleSubmit((data) => {
-          setIsProcessing(true)
-          onSubmit(data)
-        })}>
+        <button
+          type="submit"
+          disabled={isProcessing}
+          onClick={handleSubmit((data) => {
+            setIsProcessing(true);
+            onSubmit(data);
+          })}
+        >
           登録する
         </button>
         <button onClick={() => reset()}>リセットする</button>
