@@ -1,6 +1,10 @@
 export type List = {
   postList: FormType[];
 };
+export type ExpenseIncome = {
+  expensepostList: FormType[];
+  incomepostList: FormType[];
+};
 
 export type ChildrenProps = {
   children: React.ReactNode;
@@ -14,6 +18,5 @@ export type FormType = {
   category: string;
   method: string;
   memo?: string;
-  userId: string | null | undefined;
+  uid: string | null | undefined;
 };
-

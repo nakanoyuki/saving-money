@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { ExpenseIncome } from "../type/type";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,7 +21,31 @@ ChartJS.register(
   Legend
 );
 
-const ChartGraph = () => {
+const ChartGraph = ({ expensepostList, incomepostList }: ExpenseIncome) => {
+  const expenseAmounts = expensepostList.map((expensepost) =>
+  Number(expensepost.amount)
+);
+const expenseTotal = expenseAmounts.reduce(
+  (prev, current) => prev + current,
+  0
+);
+
+const incomeAmounts = incomepostList.map((incomepost) =>
+  Number(incomepost.amount)
+);
+const incomeTotal = incomeAmounts.reduce(
+  (prev, current) => prev + current,
+  0
+);
+
+const spendingTotal = () => {
+  if (incomeTotal - expenseTotal >= 1) {
+    return "+" + (incomeTotal - expenseTotal);
+  } else {
+    return incomeTotal - expenseTotal;
+  }
+};
+
   const options = {
     responsive: true,
     plugins: {
@@ -34,25 +59,24 @@ const ChartGraph = () => {
   const labels = [
     "1月",
     "2月",
-    "3月",
-    "4月",
-    "5月",
-    "6月",
-    "7月",
-    "8月",
-    "9月",
-    "10月",
-    "11月",
-    "12月",
+    // "3月",
+    // "4月",
+    // "5月",
+    // "6月",
+    // "7月",
+    // "8月",
+    // "9月",
+    // "10月",
+    // "11月",
+    // "12月",
   ];
 
-  const add = 1000 + 2000;
   const data = {
     labels,
     datasets: [
       {
-        label: "データ1",
-        data: [0, add],
+        label: "収支グラフ",
+        data: [spendingTotal(),spendingTotal()],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },

@@ -32,16 +32,17 @@ const RegisterForm = () => {
       category: "--選択--",
       method: "--選択--",
       memo: "",
-      userId: auth.currentUser?.email,
+      uid: auth.currentUser?.uid,
     },
   });
 
   const onSubmit = async (data: FormType) => {
-    if (data.paymentsItem === "収入") {
-      await addDoc(collection(db, "incomelists"), data);
-    } else if (data.paymentsItem === "支出") {
-      await addDoc(collection(db, "expenselists"), data);
-    }
+    // if (data.paymentsItem === "収入") {
+    //   await addDoc(collection(db, "incomelists"), data);
+    // } else if (data.paymentsItem === "支出") {
+    //   await addDoc(collection(db, "expenselists"), data);
+    // }
+    await addDoc(collection(db, "lists"), data);
     reset();
     setIsProcessing(false);
   };
@@ -132,11 +133,11 @@ const RegisterForm = () => {
 
         <label>備考</label>
         <textarea
-          {...register("memo", { required: "memo is required" })}
+          {...register("memo")}
           id="textarea"
           placeholder="備考"
         ></textarea>
-        <p style={{ color: "red" }}>{errors.memo?.message}</p>
+        {/* <p style={{ color: "red" }}>{errors.memo?.message}</p> */}
         <button
           type="submit"
           disabled={isProcessing}

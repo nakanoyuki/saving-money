@@ -23,6 +23,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
+      
       navigate("/");
     } catch (error) {
       alert("正しく入力してください");
@@ -56,6 +57,18 @@ const SignUp = () => {
                 noValidate
                 sx={{ mt: 1 }}
               >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="name"
+                  label="名前"
+                  name="name"
+                  autoComplete="email"
+                  autoFocus
+                  value={signupEmail}
+                  onChange={(e) => setSignupEmail(e.target.value)}
+                />
                 <TextField
                   margin="normal"
                   required

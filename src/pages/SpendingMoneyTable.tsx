@@ -1,14 +1,13 @@
-import { css } from "@emotion/react";
 import { usePostList } from "../hooks/usePostList";
 
 import RegisterTable from "../components/RegisterTable";
 
 const SpendingMoneyTable = () => {
-  const { incomepostList } = usePostList();
+  const { postList } = usePostList();
 
   return (
     <div className="pageArea">
-      <RegisterTable postList={incomepostList} />
+      <RegisterTable postList={postList} />
     </div>
   );
 };
