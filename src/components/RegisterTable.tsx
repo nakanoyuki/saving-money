@@ -11,100 +11,9 @@ import {
   TableRow,
 } from "@mui/material";
 import { useState } from "react";
+import { month, monthlists } from "../../src/util";
 
 const RegisterTable = ({ postList }: List) => {
-  const selectMonth = () => {
-    //日付→今月
-    const today = new Date();
-    // const nowtoday = new Date();
-    const lastMonth1 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth2 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth3 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth4 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth5 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth6 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth7 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth8 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth9 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth10 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-    const lastMonth11 = format(
-      today.setMonth(today.getMonth() - 1),
-      "yyyy年M月"
-    );
-
-    return {
-      lastMonth1,
-      lastMonth2,
-      lastMonth3,
-      lastMonth4,
-      lastMonth5,
-      lastMonth6,
-      lastMonth7,
-      lastMonth8,
-      lastMonth9,
-      lastMonth10,
-      lastMonth11,
-    };
-  };
-  const {
-    lastMonth1,
-    lastMonth2,
-    lastMonth3,
-    lastMonth4,
-    lastMonth5,
-    lastMonth6,
-    lastMonth7,
-    lastMonth8,
-    lastMonth9,
-    lastMonth10,
-    lastMonth11,
-  } = selectMonth();
-
-  const today = new Date();
-  const month = format(today, "yyyy年M月");
-  const monthlists = [
-    lastMonth1,
-    lastMonth2,
-    lastMonth3,
-    lastMonth4,
-    lastMonth5,
-    lastMonth6,
-    lastMonth7,
-    lastMonth8,
-    lastMonth9,
-    lastMonth10,
-    lastMonth11,
-  ];
   const [selectmonth, setSelectMonth] = useState(month);
 
   const filterMatchMonth = () => {
@@ -113,14 +22,13 @@ const RegisterTable = ({ postList }: List) => {
     );
   };
 
-  console.log("month" + month);
   return (
     <>
       <select
         value={selectmonth}
         onChange={(event) => setSelectMonth(event.target.value)}
       >
-          <option value={month}>{month}</option>
+        <option value={month}>{month}</option>
         {monthlists.map((month) => (
           <option value={month} key={month}>
             {month}
