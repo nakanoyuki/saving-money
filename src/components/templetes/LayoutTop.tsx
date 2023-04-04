@@ -1,6 +1,5 @@
-import React from "react";
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
+import HeaderTop from "../layout/HeaderTop";
 import { css } from "@emotion/react";
 import { ChildrenProps } from "../../type/type";
 
@@ -10,15 +9,15 @@ const mainheight = css`
   align-items: center;
   justify-content: center;
 `;
-const LayoutAuth = (props: ChildrenProps) => {
+const LayoutTop = (props: ChildrenProps) => {
   const { children } = props;
   return (
     <>
-      <Header />
+      <HeaderTop />
       <main css={mainheight}>{children}</main>
       <Footer />
     </>
   );
 };
 
-export default LayoutAuth;
+export default LayoutTop;

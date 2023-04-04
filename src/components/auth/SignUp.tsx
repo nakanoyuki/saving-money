@@ -1,10 +1,8 @@
-import React, { useEffect, useState, FormEvent, useContext } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { useState, FormEvent } from "react";
+import { createUserWithEmailAndPassword} from "firebase/auth";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 import LayoutAuth from "../templetes/LayoutAuth";
-import { css } from "@emotion/react";
 import {
   Box,
   Button,
@@ -13,18 +11,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { auth } from "../../firebase";
 
 const SignUp = () => {
   const { user } = useAuthContext();
   const [signupEmail, setSignupEmail] = useState<string>("");
   const [signupPassword, setSignupPassword] = useState<string>("");
+
   const navigate = useNavigate();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
-      
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       alert("正しく入力してください");
     }
@@ -33,7 +32,7 @@ const SignUp = () => {
     <>
       {user ? (
         <>
-          <Navigate to="/" />
+          <Navigate to="/home" />
         </>
       ) : (
         <LayoutAuth>
@@ -57,18 +56,18 @@ const SignUp = () => {
                 noValidate
                 sx={{ mt: 1 }}
               >
-                <TextField
+                {/* <TextField
                   margin="normal"
                   required
                   fullWidth
                   id="name"
                   label="名前"
                   name="name"
-                  autoComplete="email"
+                  autoComplete="name"
                   autoFocus
-                  value={signupEmail}
-                  onChange={(e) => setSignupEmail(e.target.value)}
-                />
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                /> */}
                 <TextField
                   margin="normal"
                   required

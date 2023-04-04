@@ -6,7 +6,7 @@ import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
 import { css } from "@emotion/react";
 import SignOut from "../auth/SignOut";
 import logo from "../../img/logo.png";
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Toolbar, Box } from "@mui/material";
 
 const header = css`
   display: flex;
@@ -20,37 +20,27 @@ const Header = () => {
   const { user } = useAuthContext();
 
   return (
-    <AppBar >
+    <AppBar>
       <Toolbar css={header}>
-        <Typography variant="h1">
-          <Link to="/">
-            <img src={logo} alt="収支管理APP" width="100" />
-          </Link>
-        </Typography>
+        <Link to="/">
+          <img src={logo} alt="収支管理APP" width="100" />
+        </Link>
 
-        {user ? (
-          <div>
-            <NavLink
-              className={({ isActive, isPending }) => {
-                return isActive ? "active" : isPending ? "pending" : "";
+        {user && (
+          <>
+            <Button
+              href="/mypage"
+              sx={{
+                color: "#4169e1",
+                fontSize: "14px",
+                fontWeight: "600",
+                ml: "4px",
               }}
-              to="/mypage"
             >
-              <Button
-                sx={{
-                  color: "#4169e1",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  ml: "4px",
-                }}
-              >
-                マイページ
-              </Button>
-            </NavLink>
+              マイページ
+            </Button>
             <SignOut />
-          </div>
-        ) : (
-          <></>
+          </>
         )}
       </Toolbar>
     </AppBar>

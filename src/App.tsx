@@ -15,6 +15,7 @@ import DefaultLayout from "./components/templetes/DefaultLayout";
 /** @jsxImportSource @emotion/react */
 import emotionReset from "emotion-reset";
 import { Global, css } from "@emotion/react";
+import Start from "./pages/Start";
 
 function App() {
   return (
@@ -70,11 +71,12 @@ function App() {
       />
         <AuthProvider>
           <Routes>
+            <Route path="/" element={<Start />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route element={<DefaultLayout />}>
               <Route path="/mypage" element={<Mypage />} />
-              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/howtouse" element={<HowtoUse />} />
               <Route
                 path="/spendingmoneyform"
