@@ -34,7 +34,7 @@ const SideBarItem = ({ link, content }: { link: string; content: string }) => {
 const SideBar = () => {
   return (
     <div className="sideBar" css={sideBar}>
-      <SideBarItem link="/" content="ホーム"/>
+      <SideBarItem link="/home" content="ホーム"/>
       <SideBarItem link="/howtouse" content="使い方"/>
       <SideBarItem link="/spendingmoneyform" content="収支入力"/>
       <SideBarItem link="/spendingmoneytable" content="収支一覧"/>

@@ -15,6 +15,7 @@ import {
 const TotalTable = ({ expensepostList, incomepostList }: ExpenseIncome) => {
   const expenseAmounts = expensepostList.map((expensepost) =>
     Number(expensepost.amount)
+
   );
   const expenseTotal = expenseAmounts.reduce(
     (prev, current) => prev + current,
@@ -36,8 +37,6 @@ const TotalTable = ({ expensepostList, incomepostList }: ExpenseIncome) => {
       return incomeTotal - expenseTotal;
     }
   };
-
-
 
   return (
     <>
@@ -61,19 +60,20 @@ const TotalTable = ({ expensepostList, incomepostList }: ExpenseIncome) => {
             </TableRow>
           </TableHead>
           <TableBody>
-         
-            <TableCell sx={{ fontSize: 14 }}>
-              {spendingTotal().toLocaleString()}
-              <span> 円</span>
-            </TableCell>
-            <TableCell sx={{ fontSize: 14 }}>
-              + {incomeTotal.toLocaleString()}
-              <span> 円</span>
-            </TableCell>
-            <TableCell sx={{ fontSize: 14 }}>
-              - {expenseTotal.toLocaleString()}
-              <span> 円</span>
-            </TableCell>
+            <TableRow>
+              <TableCell sx={{ fontSize: 14 }}>
+                {spendingTotal().toLocaleString()}
+                <span> 円</span>
+              </TableCell>
+              <TableCell sx={{ fontSize: 14 }}>
+                + {incomeTotal.toLocaleString()}
+                <span> 円</span>
+              </TableCell>
+              <TableCell sx={{ fontSize: 14 }}>
+                - {expenseTotal.toLocaleString()}
+                <span> 円</span>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>

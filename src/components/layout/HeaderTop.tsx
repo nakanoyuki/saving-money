@@ -15,32 +15,35 @@ const HeaderTop = () => {
   return (
     <AppBar>
       <Toolbar css={header}>
-        <Link to="/">
-          <img src={logo} alt="収支管理APP" width="100" />
+        <Link to="/home">
+          <img src={logo} alt="収支管理APP" width="100" height="42"/>
         </Link>
-
-        <Button
-          href="/login"
-          sx={{
-            color: "#4169e1",
-            fontSize: "14px",
-            fontWeight: "600",
-            ml: "4px",
-          }}
-        >
-          ログイン
-        </Button>
-        <Button
-          href="/signup"
-          sx={{
-            color: "#4169e1",
-            fontSize: "14px",
-            fontWeight: "600",
-            ml: "4px",
-          }}
-        >
-          新規アカウントを作成する
-        </Button>
+        <div>
+          <Button
+            href="/login"
+            sx={{
+              color: "#4169e1",
+              fontSize: " 1.4rem",
+              fontWeight: "600",
+              px: 3,
+            }}
+          >
+            ログイン
+          </Button>
+          <Button
+            href="/signup"
+            sx={{
+              border: "solid 2px #4169e1",
+              borderRadius: "50px",
+              color: "#4169e1",
+              fontSize: " 1.4rem",
+              fontWeight: "600",
+              px: 3,
+            }}
+          >
+            新規アカウントを作成する
+          </Button>
+        </div>
       </Toolbar>
     </AppBar>
   );

@@ -22,25 +22,27 @@ const Header = () => {
   return (
     <AppBar>
       <Toolbar css={header}>
-        <Link to="/">
-          <img src={logo} alt="収支管理APP" width="100" />
+        <Link to="/home">
+          <img src={logo} alt="収支管理APP" width={100} height={42}/>
         </Link>
 
         {user && (
-          <>
+          <div>
             <Button
               href="/mypage"
               sx={{
+                border: "solid 2px #4169e1",
+                borderRadius: "50px",
                 color: "#4169e1",
-                fontSize: "14px",
+                fontSize: " 1.4rem",
                 fontWeight: "600",
-                ml: "4px",
+                px: 3,
               }}
             >
               マイページ
             </Button>
-            <SignOut />
-          </>
+            <SignOut/>
+          </div>
         )}
       </Toolbar>
     </AppBar>

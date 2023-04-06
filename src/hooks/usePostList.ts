@@ -13,6 +13,7 @@ import { db } from "../firebase";
 import { FormType } from "../type/type";
 import { auth } from "../firebase";
 import { format } from "date-fns";
+import { startOfMonth, endOfMonth ,subMonths} from "date-fns";
 
 export const usePostList = () => {
   const [postList, setPostList] = useState<FormType[]>([]);
@@ -23,7 +24,7 @@ export const usePostList = () => {
         query(
           listsRef,
           where("uid", "==", auth.currentUser?.uid),
-          orderBy("date", "desc"),
+          orderBy("date", "desc")
         )
       );
       setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -33,14 +34,12 @@ export const usePostList = () => {
 
   return { postList };
 };
-
-
+const now = new Date();
+const startDate = startOfMonth(subMonths(now, 11));
+const endDate = endOfMonth(now);
 export const useIncomePostList = () => {
-  const today = new Date();
-  const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-  const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-  const [incomepostList, setIncomePostList] = useState<FormType[]>([]);
+  const [incomepostList, setIncomepostList] = useState<FormType[]>([]);
   useEffect(() => {
     const getLists = async () => {
       const listsRef = collection(db, "lists") as CollectionReference<FormType>;
@@ -49,23 +48,20 @@ export const useIncomePostList = () => {
           listsRef,
           where("uid", "==", auth.currentUser?.uid),
           where("paymentsItem", "==", "収入"),
-          where('date', '>=',startOfMonth),
-          where('date', '<=', endOfMonth)
+          where("date", ">=", startOfMonth(now)),
+          where("date", "<=", endOfMonth(now))
         )
       );
-      setIncomePostList(
+      setIncomepostList(
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
     };
     getLists();
-  }, [startOfMonth]);
+  }, []);
 
   return { incomepostList };
 };
 export const useExpensePostList = () => {
-  const today = new Date();
-  const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-  const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
   const [expensepostList, setExpensePostList] = useState<FormType[]>([]);
   useEffect(() => {
     const getLists = async () => {
@@ -75,8 +71,8 @@ export const useExpensePostList = () => {
           listsRef,
           where("uid", "==", auth.currentUser?.uid),
           where("paymentsItem", "==", "支出"),
-          where('date', '>=', startOfMonth),
-          where('date', '<=', endOfMonth)
+          where("date", ">=", startOfMonth(now)),
+          where("date", "<=", endOfMonth(now))
         )
       );
       setExpensePostList(
@@ -84,8 +80,7 @@ export const useExpensePostList = () => {
       );
     };
     getLists();
-  }, [startOfMonth]);
+  }, []);
 
   return { expensepostList };
 };
-

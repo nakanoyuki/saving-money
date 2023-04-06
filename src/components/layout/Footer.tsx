@@ -11,14 +11,13 @@ const footercenter = css`
   background: #fff;
 `;
 const imgSize = css`
-  width: 60px;
   margin-left: 1rem;
 `;
 const Footer = () => {
   return (
     <footer css={footercenter}>
-      <Typography>
-        <Link to="/">
+      {/* <Typography> */}
+        <Link to="/home">
           <Box
             sx={{
               display: "flex",
@@ -27,10 +26,10 @@ const Footer = () => {
               fontSize:"1.2rem"
             }}
           >
-            Powered by <img src={logo} css={imgSize} alt="収支管理APP" width="100" />
+            Powered by <img src={logo} css={imgSize} alt="収支管理APP" width="60" />
           </Box>
         </Link>
-      </Typography>
+      {/* </Typography> */}
       {/* <Footer css={footercenter}>Powered by Nakano</Footer> */}
     </footer>
   );
