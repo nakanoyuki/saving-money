@@ -48,8 +48,8 @@ export const useIncomePostList = () => {
           listsRef,
           where("uid", "==", auth.currentUser?.uid),
           where("paymentsItem", "==", "収入"),
-          where("date", ">=", startOfMonth(now)),
-          where("date", "<=", endOfMonth(now))
+          where("date", ">=", startDate),
+          where("date", "<=", endDate)
         )
       );
       setIncomepostList(
@@ -71,8 +71,8 @@ export const useExpensePostList = () => {
           listsRef,
           where("uid", "==", auth.currentUser?.uid),
           where("paymentsItem", "==", "支出"),
-          where("date", ">=", startOfMonth(now)),
-          where("date", "<=", endOfMonth(now))
+          where("date", ">=", startDate),
+          where("date", "<=",endDate)
         )
       );
       setExpensePostList(

@@ -12,7 +12,7 @@ const SpendingMoneyReport = () => {
   return (
     <div className="pageArea">
       <h2>収支レポート</h2>
-      <ChartGraph expensepostList={expensepostList} incomepostList={incomepostList}/>
+      {/* <ChartGraph expensepostList={expensepostList} incomepostList={incomepostList}/> */}
       <TotalTable expensepostList={expensepostList} incomepostList={incomepostList}/>
     </div>
   );

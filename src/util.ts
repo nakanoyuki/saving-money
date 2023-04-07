@@ -58,3 +58,19 @@ export const monthlists = [
   lastMonth10,
   lastMonth11,
 ];
+
+
+export const groupByMonth = (expensePostList: ExpenseIncome[],incomepostList: ExpenseIncome[]) => {
+  const groups: { [key: string]: ExpenseIncome[] } = {};
+
+  expensePostList.forEach((post) => {
+    const month = format(post.date.toDate(), "yyyy年M月");
+    if (groups[month]) {
+      groups[month].push(post);
+    } else {
+      groups[month] = [post];
+    }
+  });
+
+  return groups;
+};

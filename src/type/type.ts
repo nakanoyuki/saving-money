@@ -2,8 +2,10 @@ export type List = {
   postList: FormType[];
 };
 export type ExpenseIncome = {
-  expensepostList: FormType[];
-  incomepostList: FormType[];
+  // expensepostList: FormType[];
+  // incomepostList: FormType[];
+  date:any
+  amount: number;
 };
 
 export type ChildrenProps = {
