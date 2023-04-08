@@ -10,11 +10,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FormType } from "../type/type";
 import Button from "@mui/material/Button";
 import {
+  Alert,
   Box,
+  css,
   FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
+  Snackbar,
   TextareaAutosize,
   TextField,
 } from "@mui/material";
@@ -89,10 +92,16 @@ const RegisterForm = () => {
     const result = setResult(Math.floor(currentAmount * 0.1));
   }, [getValues("amount")]);
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+  };
+
   const onSubmit = async (data: FormType) => {
     await addDoc(collection(db, "lists"), data);
     reset();
     setIsProcessing(false);
+    setShow(true);
   };
 
   const handleResetButton = () => {
@@ -102,147 +111,299 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Grid container>
-        <Box component="form">
-          <InputLabel htmlFor="date">購入日時</InputLabel>
-          <Controller
-            control={control}
-            name="date"
-            render={({ field }) => (
-              <DatePicker
-                {...field}
-                dateFormat="yyyy/MM/dd"
-                selected={watch("date")}
-                locale="ja"
-                inline
+      <Box
+        component="form"
+        sx={{
+          mt: "2rem",
+        }}
+      >
+        <Box
+          sx={{
+            border: "solid 1px #d9d9d9;",
+            background: "#ffffff",
+            width: "100%",
+            p: "2.5rem",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <Box>
+              <InputLabel
+                htmlFor="date"
+                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+              >
+                購入日時
+              </InputLabel>
+              <Controller
+                control={control}
+                name="date"
+                render={({ field }) => (
+                  <DatePicker
+                    {...field}
+                    dateFormat="yyyy/MM/dd"
+                    selected={watch("date")}
+                    locale="ja"
+                    inline
+                  />
+                )}
               />
-            )}
-          />
+            </Box>
+            <Box sx={{ ml: "2rem" }}>
+              <InputLabel
+                htmlFor="paymentsItem"
+                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+              >
+                収支
+              </InputLabel>
+              <Controller
+                name="paymentsItem"
+                control={control}
+                defaultValue="--選択--"
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="収支"
+                    fullWidth
+                    margin="normal"
+                    id="select"
+                    error={!!errors.paymentsItem}
+                    select
+                    sx={{ background: "#ffffff", width: "300px" }}
+                  >
+                    <MenuItem disabled>--選択--</MenuItem>
+                    {paymentsdata.map((payment) => (
+                      <MenuItem key={payment} value={payment}>
+                        {payment}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
+              <FormHelperText sx={{ color: "red" }}>
+                {errors.paymentsItem?.message}
+              </FormHelperText>
+            </Box>
 
-          <InputLabel htmlFor="paymentsItem">収支</InputLabel>
-          <Controller
-            name="paymentsItem"
-            control={control}
-            defaultValue="--選択--"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="収支"
-                fullWidth
-                margin="normal"
-                id="select"
-                error={!!errors.paymentsItem}
-                select
+            <Box sx={{ ml: "2rem" }}>
+              <InputLabel
+                htmlFor="category"
+                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
               >
-                <MenuItem disabled>--選択--</MenuItem>
-                {paymentsdata.map((payment) => (
-                  <MenuItem key={payment} value={payment}>
-                    {payment}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          />
-          <FormHelperText sx={{ color: "red" }}>
-            {errors.paymentsItem?.message}
-          </FormHelperText>
-          <InputLabel htmlFor="category">勘定科目</InputLabel>
-          <Controller
-            name="category"
-            control={control}
-            defaultValue="--選択--"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="勘定科目"
-                fullWidth
-                margin="normal"
-                id="select"
-                error={!!errors.category}
-                select
-              >
-                <MenuItem disabled>--選択--</MenuItem>
-                {categoriesdata.map((category) => (
-                  <MenuItem key={category} value={category}>
-                    {category}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          />
-          <FormHelperText sx={{ color: "red" }}>
-            {errors.category?.message}
-          </FormHelperText>
-          <InputLabel htmlFor="method">支払い方法</InputLabel>
-          <Controller
-            name="method"
-            control={control}
-            defaultValue="--選択--"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="支払い方法"
-                fullWidth
-                margin="normal"
-                id="select"
-                error={!!errors.method}
-                select
-              >
-                <MenuItem disabled>--選択--</MenuItem>
-                {methodsdata.map((method) => (
-                  <MenuItem key={method} value={method}>
-                    {method}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          />
-          <FormHelperText sx={{ color: "red" }}>
-            {errors.method?.message}
-          </FormHelperText>
-          <InputLabel htmlFor="amount">金額</InputLabel>
-          <TextField
-            required
-            label="金額"
-            variant="standard"
-            {...register("amount")}
-            id="standard-number"
-            type="number"
-            error={!!errors.amount}
-          />
-          <p>税金: {result}円</p>
-          <p>合計: {watch("amount")}円</p>
-          <FormHelperText sx={{ color: "red" }}>
-            {errors.amount?.message}
-          </FormHelperText>
-          <Button
-            variant="contained"
-            disabled={!btnDisabled}
-            onClick={handleTaxButton}
+                勘定科目
+              </InputLabel>
+              <Controller
+                name="category"
+                control={control}
+                defaultValue="--選択--"
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="勘定科目"
+                    fullWidth
+                    margin="normal"
+                    id="select"
+                    error={!!errors.category}
+                    select
+                    sx={{ background: "#ffffff", width: "300px" }}
+                  >
+                    <MenuItem disabled>--選択--</MenuItem>
+                    {categoriesdata.map((category) => (
+                      <MenuItem key={category} value={category}>
+                        {category}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
+              <FormHelperText sx={{ color: "red" }}>
+                {errors.category?.message}
+              </FormHelperText>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              width: "90%",
+              mt: "1rem",
+            }}
           >
-            10%
-          </Button>
+            <Box>
+              <InputLabel
+                htmlFor="method"
+                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+              >
+                支払い方法
+              </InputLabel>
+              <Controller
+                name="method"
+                control={control}
+                defaultValue="--選択--"
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="支払い方法"
+                    fullWidth
+                    margin="normal"
+                    id="select"
+                    error={!!errors.method}
+                    select
+                    sx={{ background: "#ffffff", width: "300px" }}
+                  >
+                    <MenuItem disabled>--選択--</MenuItem>
+                    {methodsdata.map((method) => (
+                      <MenuItem key={method} value={method}>
+                        {method}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
+              <FormHelperText sx={{ color: "red" }}>
+                {errors.method?.message}
+              </FormHelperText>
+            </Box>
+
+            <Box sx={{ ml: "2rem", width: "400px" }}>
+              <InputLabel
+                htmlFor="amount"
+                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+              >
+                金額
+              </InputLabel>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <TextField
+                  required
+                  variant="standard"
+                  {...register("amount")}
+                  id="standard-number"
+                  type="number"
+                  error={!!errors.amount}
+                  sx={{
+                    background: "#ffffff",
+                    width: "80%",
+                  }}
+                />
+                <Box sx={{ fontSize: "1.4rem" }}>円</Box>
+              </Box>
+              <FormHelperText sx={{ color: "red" }}>
+                {errors.amount?.message}
+              </FormHelperText>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  mt: "1rem",
+                  fontSize: "1.4rem",
+                }}
+              >
+                <Box>
+                  <Button
+                    variant="contained"
+                    disabled={!btnDisabled}
+                    onClick={handleTaxButton}
+                    sx={{ width: "100px" }}
+                  >
+                    10%
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    disabled={btnDisabled}
+                    onClick={handleNotTaxButton}
+                    sx={{ ml: "1rem", width: "100px" }}
+                  >
+                    なし
+                  </Button>
+                </Box>
+                <Box>
+                  <Box>税金: ¥{result.toLocaleString()}</Box>
+                  <Box>
+                    合計: ¥
+                    {new Intl.NumberFormat("ja-JP").format(watch("amount"))}
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              mt: "1rem",
+            }}
+          >
+            <InputLabel
+              htmlFor="memo"
+              sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+            >
+              備考
+            </InputLabel>
+            <TextareaAutosize
+              {...register("memo")}
+              id="textarea"
+              placeholder="備考"
+              minRows={5}
+              maxRows={10}
+              aria-label="maximum height"
+              style={{
+                border: "solid 1px #d9d9d9",
+                background: "#ffffff",
+                width: "100%",
+                padding: "1rem",
+              }}
+            />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            mt: "2rem",
+          }}
+        >
           <Button
+            sx={{
+              width: "48%",
+              fontSize: "1.2rem",
+              height: "60px",
+              p: "1rem",
+              fontWeight: "bold",
+              borderRadius: "50px",
+            }}
+            type="reset"
             variant="outlined"
-            disabled={btnDisabled}
-            onClick={handleNotTaxButton}
+            onClick={handleResetButton}
           >
-            なし
+            リセットする
           </Button>
-          <InputLabel htmlFor="memo">備考</InputLabel>
-          <TextareaAutosize
-            {...register("memo")}
-            id="textarea"
-            placeholder="備考"
-            minRows={3}
-            maxRows={10}
-            aria-label="maximum height"
-            style={{ width: 400 }}
-          />
           <Button
             type="submit"
             variant="contained"
-            size="large"
+            sx={{
+              width: "48%",
+              fontSize: "1.6rem",
+              height: "60px",
+              p: "1rem",
+              fontWeight: "bold",
+              borderRadius: "50px",
+            }}
             disabled={isProcessing}
             onClick={handleSubmit((data) => {
               setIsProcessing(true);
@@ -252,11 +413,13 @@ const RegisterForm = () => {
           >
             登録する
           </Button>
-          <Button type="reset" onClick={handleResetButton}>
-            リセットする
-          </Button>
         </Box>
-      </Grid>
+        <Snackbar open={show} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            登録が完了しました！
+          </Alert>
+        </Snackbar>
+      </Box>
     </>
   );
 };

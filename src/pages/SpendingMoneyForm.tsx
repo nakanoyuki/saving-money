@@ -4,14 +4,17 @@ import ja from "date-fns/locale/ja";
 
 import RegisterForm from "../components/RegisterForm";
 
+const formStyle = css`
+  
+`;
 const SpendingMoneyForm = () => {
   registerLocale("ja", ja);
 
   return (
-      <div className="pageArea">
-        <h2>収支登録</h2>
-        <RegisterForm />
-      </div>
+    <div >
+      <h2>収支登録</h2>
+      <RegisterForm />
+    </div>
   );
 };
 

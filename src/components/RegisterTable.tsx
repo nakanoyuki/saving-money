@@ -2,6 +2,7 @@ import uuid from "react-uuid";
 import { format } from "date-fns";
 import { List } from "../type/type";
 import {
+  MenuItem,
   Select,
   Table,
   TableBody,
@@ -9,42 +10,72 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import { useState } from "react";
 import { month, monthlists } from "../../src/util";
+import ReactPaginate from "react-paginate";
+import { Box } from "@mui/system";
+import { css } from "@emotion/react";
 
+const sample = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 20px 6px;
+  margin-top:2rem;
+
+  .previous,
+  .next {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 30px;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    height: 40px;
+    width: 40px;
+  }
+`;
 const RegisterTable = ({ postList }: List) => {
+  // ページネーション
   const [selectmonth, setSelectMonth] = useState(month);
-
   const filterMatchMonth = () => {
     return postList.filter(
       (post) => format(post.date.toDate(), "yyyy年M月") === selectmonth
     );
   };
-
+  const itemsPerPage = 6;
+  const [itemsOffset, setItemsOffset] = useState(0);
+  const endOffset = itemsOffset + itemsPerPage;
+  const currentAlbums = filterMatchMonth().slice(itemsOffset, endOffset);
+  const pageCount = Math.ceil(filterMatchMonth().length / itemsPerPage);
+  const handlePageClick = (e: { selected: number }) => {
+    const newOffset = (e.selected * itemsPerPage) % filterMatchMonth().length;
+    setItemsOffset(newOffset);
+  };
   return (
     <>
-      <select
+      <Select
         value={selectmonth}
         onChange={(event) => setSelectMonth(event.target.value)}
+        sx={{background:"#ffffff",width:"300px"}}
       >
-        <option value={month}>{month}</option>
+        <MenuItem value={month}>{month}</MenuItem>
         {monthlists.map((month) => (
-          <option value={month} key={month}>
+          <MenuItem value={month} key={month}>
             {month}
-          </option>
+          </MenuItem>
         ))}
-      </select>
+      </Select>
 
       <TableContainer
         sx={{
-          padding: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: 900,
+          p: "3rem",
+          mt:"1rem",
+          width: "100%",
           background: "#fff",
-          fontSize: 18,
         }}
       >
         <Table>
@@ -59,7 +90,7 @@ const RegisterTable = ({ postList }: List) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filterMatchMonth().map(
+            {currentAlbums.map(
               ({ date, amount, paymentsItem, category, method, memo }) => {
                 return (
                   <TableRow key={uuid()}>
@@ -77,6 +108,13 @@ const RegisterTable = ({ postList }: List) => {
             )}
           </TableBody>
         </Table>
+        <ReactPaginate
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          css={sample}
+          breakLabel="..."
+          nextLabel=">" previousLabel="<"
+        />
       </TableContainer>
     </>
   );
