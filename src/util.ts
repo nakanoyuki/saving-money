@@ -60,15 +60,23 @@ export const monthlists = [
 ];
 
 
-export const groupByMonth = (expensePostList: ExpenseIncome[],incomepostList: ExpenseIncome[]) => {
+export const groupByMonth = (expensePostList: ExpenseIncome[],incomePostList: ExpenseIncome[]) => {
   const groups: { [key: string]: ExpenseIncome[] } = {};
 
-  expensePostList.forEach((post) => {
-    const month = format(post.date.toDate(), "yyyy年M月");
+  expensePostList.forEach((expensePost) => {
+    const month = format(expensePost.date.toDate(), "yyyy年M月");
     if (groups[month]) {
-      groups[month].push(post);
+      groups[month].push(expensePost);
     } else {
-      groups[month] = [post];
+      groups[month] = [expensePost];
+    }
+  });
+  incomePostList.forEach((incomePost) => {
+    const month = format(incomePost.date.toDate(), "yyyy年M月");
+    if (groups[month]) {
+      groups[month].push(incomePost);
+    } else {
+      groups[month] = [incomePost];
     }
   });
 

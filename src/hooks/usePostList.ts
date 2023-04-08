@@ -39,7 +39,7 @@ const startDate = startOfMonth(subMonths(now, 11));
 const endDate = endOfMonth(now);
 export const useIncomePostList = () => {
 
-  const [incomepostList, setIncomepostList] = useState<FormType[]>([]);
+  const [incomePostList, setIncomePostList] = useState<FormType[]>([]);
   useEffect(() => {
     const getLists = async () => {
       const listsRef = collection(db, "lists") as CollectionReference<FormType>;
@@ -52,17 +52,17 @@ export const useIncomePostList = () => {
           where("date", "<=", endDate)
         )
       );
-      setIncomepostList(
+      setIncomePostList(
         data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
     };
     getLists();
   }, []);
 
-  return { incomepostList };
+  return { incomePostList };
 };
 export const useExpensePostList = () => {
-  const [expensepostList, setExpensePostList] = useState<FormType[]>([]);
+  const [expensePostList, setExpensePostList] = useState<FormType[]>([]);
   useEffect(() => {
     const getLists = async () => {
       const listsRef = collection(db, "lists") as CollectionReference<FormType>;
@@ -82,5 +82,5 @@ export const useExpensePostList = () => {
     getLists();
   }, []);
 
-  return { expensepostList };
+  return { expensePostList };
 };

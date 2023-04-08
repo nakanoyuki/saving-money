@@ -21,30 +21,30 @@ ChartJS.register(
   Legend
 );
 
-const ChartGraph = ({ expensepostList, incomepostList }: ExpenseIncome) => {
-  const expenseAmounts = expensepostList.map((expensepost) =>
-  Number(expensepost.amount)
-);
-const expenseTotal = expenseAmounts.reduce(
-  (prev, current) => prev + current,
-  0
-);
+const ChartGraph = () => {
+//   const expenseAmounts = expensepostList.map((expensepost) =>
+//   Number(expensepost.amount)
+// );
+// const expenseTotal = expenseAmounts.reduce(
+//   (prev, current) => prev + current,
+//   0
+// );
 
-const incomeAmounts = incomepostList.map((incomepost) =>
-  Number(incomepost.amount)
-);
-const incomeTotal = incomeAmounts.reduce(
-  (prev, current) => prev + current,
-  0
-);
+// const incomeAmounts = incomepostList.map((incomepost) =>
+//   Number(incomepost.amount)
+// );
+// const incomeTotal = incomeAmounts.reduce(
+//   (prev, current) => prev + current,
+//   0
+// );
 
-const spendingTotal = () => {
-  if (incomeTotal - expenseTotal >= 1) {
-    return "+" + (incomeTotal - expenseTotal);
-  } else {
-    return incomeTotal - expenseTotal;
-  }
-};
+// const spendingTotal = () => {
+//   if (incomeTotal - expenseTotal >= 1) {
+//     return "+" + (incomeTotal - expenseTotal);
+//   } else {
+//     return incomeTotal - expenseTotal;
+//   }
+// };
 
   const options = {
     responsive: true,
@@ -59,16 +59,16 @@ const spendingTotal = () => {
   const labels = [
     "1月",
     "2月",
-    // "3月",
-    // "4月",
-    // "5月",
-    // "6月",
-    // "7月",
-    // "8月",
-    // "9月",
-    // "10月",
-    // "11月",
-    // "12月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
   ];
 
   const data = {
@@ -76,7 +76,7 @@ const spendingTotal = () => {
     datasets: [
       {
         label: "収支グラフ",
-        data: [spendingTotal(),spendingTotal()],
+        data: [],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },

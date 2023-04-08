@@ -3,6 +3,7 @@ import uuid from "react-uuid";
 import { format } from "date-fns";
 import { ExpenseIncome } from "../../type/type";
 import { auth } from "../../firebase";
+import { month, monthlists } from "../../util";
 import {
   Table,
   TableBody,
@@ -14,27 +15,27 @@ import {
 import { groupByMonth } from "../../util";
 
 const TotalTable = ({
-  expensepostList,
-  incomepostList,
+  expensePostList,
+  incomePostList,
 }: {
-  expensepostList: ExpenseIncome[];
-  incomepostList: ExpenseIncome[];
+  expensePostList: ExpenseIncome[];
+  incomePostList: ExpenseIncome[];
 }) => {
 
-  const groups = groupByMonth(expensepostList,incomepostList);
+  const [selectmonth, setSelectMonth] = useState(month);
+  const groups = groupByMonth(expensePostList, incomePostList);
 
-    const expenseAmounts = expensepostList.map((expensepost) =>
-    Number(expensepost.amount)
+  const incomeAmounts = incomePostList.map((incomePost) =>
+    Number(incomePost.amount)
   );
-  const expenseTotal = expenseAmounts.reduce(
+  const incomeTotal = incomeAmounts.reduce(
     (prev, current) => prev + current,
     0
   );
-
-  const incomeAmounts = incomepostList.map((incomepost) =>
-    Number(incomepost.amount)
+  const expenseAmounts = expensePostList.map((expensePost) =>
+    Number(expensePost.amount)
   );
-  const incomeTotal = incomeAmounts.reduce(
+  const expenseTotal = expenseAmounts.reduce(
     (prev, current) => prev + current,
     0
   );
@@ -49,65 +50,49 @@ const TotalTable = ({
 
   return (
     <>
-      {Object.keys(groups).map((month) => (
-        <TableContainer
-          sx={{
-            padding: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: 900,
-            background: "#fff",
-            fontSize: 18,
-          }}
-        >
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ fontSize: 14 }}>合計</TableCell>
-                <TableCell sx={{ fontSize: 14 }}>収入</TableCell>
-                <TableCell sx={{ fontSize: 14 }}>支出</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {groups[month].map(
-                ({ date,amount }) => {
-                  return (
-                    <TableRow key={uuid()}>
-                      <TableCell sx={{ fontSize: 14 }}>
-                        {format(date.toDate(), "yyyy.M")}
+      {/* <li value={month}>{month}</li>
+      {monthlists.map((month) => (
+        <li value={month} key={month}>
+          {month}
+        </li>
+      ))} */}
 
-                      </TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>{amount}</TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>{amount}</TableCell>
-                      {/* <TableCell sx={{ fontSize: 14 }}>
-                        {paymentsItem}
-                      </TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>{category}</TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>{method}</TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>{memo}</TableCell> */}
-                    </TableRow>
-                    // <TableRow>
-                    //   <TableCell sx={{ fontSize: 14 }}>
-                    //     {spendingTotal().toLocaleString()}
-                    //     <span> 円</span>
-                    //   </TableCell>
-                    //   <TableCell sx={{ fontSize: 14 }}>
-                    //     + {incomeTotal.toLocaleString()}
-                    //     <span> 円</span>
-                    //   </TableCell>
-                    //   <TableCell sx={{ fontSize: 14 }}>
-                    //     - {expenseTotal.toLocaleString()}
-                    //     <span> 円</span>
-                    //   </TableCell>
-                    // </TableRow>
-                  );
-                }
-              )}
+      <TableContainer
+        sx={{
+          padding: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: 900,
+          background: "#fff",
+          fontSize: 18,
+        }}
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontSize: 14 }}>合計</TableCell>
+              <TableCell sx={{ fontSize: 14 }}>収入</TableCell>
+              <TableCell sx={{ fontSize: 14 }}>支出</TableCell>
+            </TableRow>
+          </TableHead>
+          {Object.keys(groups).map((month) => (
+            <TableBody>
+              {groups[month].map(({ date, amount}) => {
+                return (
+                  <TableRow key={uuid()}>
+                    <TableCell sx={{ fontSize: 14 }}>
+                      {format(date.toDate(), "yyyy.M")}
+                    </TableCell>
+                    <TableCell sx={{ fontSize: 14 }}>{amount}</TableCell>
+                    <TableCell sx={{ fontSize: 14 }}>{amount}</TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
-          </Table>
-        </TableContainer>
-      ))}
+          ))}
+        </Table>
+      </TableContainer>
     </>
   );
 };
