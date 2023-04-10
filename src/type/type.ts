@@ -6,6 +6,7 @@ export type ExpenseIncome = {
   // incomepostList: FormType[];
   date:any
   amount: number;
+  paymentsItem: string
 };
 
 export type ChildrenProps = {
@@ -21,4 +22,9 @@ export type FormType = {
   method: string;
   memo?: string;
   uid: string | null | undefined;
+};
+
+export type FormValues = {
+  email: string;
+  password: string;
 };

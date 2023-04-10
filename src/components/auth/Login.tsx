@@ -1,5 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState, FormEvent } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { auth } from "../../firebase";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
@@ -8,25 +9,33 @@ import {
   Box,
   Button,
   Container,
+  FormHelperText,
+  InputLabel,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { useLoginForm } from "../../hooks/useLoginForm";
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
   const { user } = useAuthContext();
-  const [loginEmail, setLoginEmail] = useState<string>("");
-  const [loginPassword, setLoginPassword] = useState<string>("");
   const navigate = useNavigate();
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const { register, handleSubmit, errors} = useLoginForm();
+  const onSubmit = async (data: FormValues) => {
     try {
-      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      await signInWithEmailAndPassword(auth, data.email, data.password);
       navigate("/home");
     } catch (error) {
       alert("正しく入力してください");
     }
   };
+
   return (
     <>
       {user ? (
@@ -52,35 +61,48 @@ const Login = () => {
               </Typography>
               <Box
                 component="form"
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
                 noValidate
-                sx={{ mt: 1 }}
+                sx={{ mt: 1, width: "100%" }}
               >
+                <InputLabel
+                  htmlFor="password"
+                  sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+                >
+                  メールアドレス
+                </InputLabel>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
                   id="email"
                   label="メールアドレス"
-                  name="email"
                   autoComplete="email"
                   autoFocus
-                  value={loginEmail}
-                  onChange={(e) => setLoginEmail(e.target.value)}
+                  {...register("email", { required: true })}
                 />
+                <FormHelperText sx={{ color: "red" }}>
+                  {errors.email?.message}
+                </FormHelperText>
+
+                <InputLabel
+                  htmlFor="password"
+                  sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+                >
+                  パスワード
+                </InputLabel>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
                   label="パスワード"
                   type="password"
-                  id="password"
                   autoComplete="current-password"
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
+                  {...register("password", { required: true })}
                 />
-
+                <FormHelperText sx={{ color: "red" }}>
+                  {errors.password?.message}
+                </FormHelperText>
                 <Button
                   type="submit"
                   fullWidth

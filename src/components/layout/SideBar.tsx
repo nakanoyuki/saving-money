@@ -7,7 +7,7 @@ const sideBar = css`
   height: 100%;
   position: fixed;
   left: 0;
-  z-index: 1000;
+  z-index: 9;
   top: 0;
   padding: 100px 1% 50px;
   a {
