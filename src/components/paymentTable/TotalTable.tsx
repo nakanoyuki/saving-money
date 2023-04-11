@@ -28,83 +28,67 @@ const TotalTable = ({ expensePostList, incomePostList }: TotalTableProps) => {
     };
     const income = calc("収入");
     const expense = calc("支出");
-    return { income, expense, sum: income - expense };
+    const sum = income - expense;
+    return {
+      income,
+      expense,
+      sum,
+      color: sum < 0 ? "#f44336" : "#1976d2",
+      PlusMinussymbol: sum < 0 ? "-" : "+",
+    };
   };
-  const labels = [
-    "1月",
-    "2月",
-    "3月",
-    "4月",
-    "5月",
-    "6月",
-    "7月",
-    "8月",
-    "9月",
-    "10月",
-    "11月",
-    "12月",
-  ];
-
-  const sumAndMonth = Object.keys(groups).map((month) => {
-    const { sum } = getAmount(groups, month);
-    
-    return { sum, month };
-  });
 
   return (
     <>
-      {Object.keys(groups).map((month) => {
-        const { income, expense, sum } = getAmount(groups, month);
-        return (
-          <TableContainer
-            sx={{
-              padding: 2,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              width: 900,
-              background: "#fff",
-              fontSize: 18,
-            }}
-          >
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ fontSize: 14, width: "20%" }}>
-                    年月
-                  </TableCell>
-                  <TableCell sx={{ fontSize: 14, width: "20%" }}>
-                    合計
-                  </TableCell>
-                  <TableCell sx={{ fontSize: 14, width: "20%" }}>
-                    収入
-                  </TableCell>
-                  <TableCell sx={{ fontSize: 14, width: "20%" }}>
-                    支出
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-
+      <TableContainer
+        sx={{
+          padding: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+          background: "#fff",
+        }}
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontSize: 14, width: "20%" }}>年月</TableCell>
+              <TableCell sx={{ fontSize: 14, width: "20%" }}>合計</TableCell>
+              <TableCell sx={{ fontSize: 14, width: "20%" }}>収入</TableCell>
+              <TableCell sx={{ fontSize: 14, width: "20%" }}>支出</TableCell>
+            </TableRow>
+          </TableHead>
+          {Object.keys(groups).map((month) => {
+            const { income, expense, sum, color, PlusMinussymbol } = getAmount(
+              groups,
+              month
+            );
+            return (
               <TableBody>
                 <TableRow key={uuid()}>
                   <TableCell sx={{ fontSize: 14, width: "20%" }}>
                     {month}
                   </TableCell>
-                  <TableCell sx={{ fontSize: 14, width: "20%" }}>
-                    {sum.toLocaleString()}
+                  <TableCell sx={{ fontSize: 14, width: "20%", color }}>
+                    {PlusMinussymbol}¥{sum >= 0 ? sum.toLocaleString() : `${Math.abs(sum).toLocaleString()}`}
                   </TableCell>
-                  <TableCell sx={{ fontSize: 14, width: "20%" }}>
-                    {income.toLocaleString()}
+                  <TableCell
+                    sx={{ fontSize: 14, width: "20%", color: "#1976d2" }}
+                  >
+                    ¥{income.toLocaleString()}
                   </TableCell>
-                  <TableCell sx={{ fontSize: 14, width: "20%" }}>
-                    {expense.toLocaleString()}
+                  <TableCell
+                    sx={{ fontSize: 14, width: "20%", color: "#f44336" }}
+                  >
+                    ¥{expense.toLocaleString()}
                   </TableCell>
                 </TableRow>
               </TableBody>
-            </Table>
-          </TableContainer>
-        );
-      })}
+            );
+          })}
+        </Table>
+      </TableContainer>
     </>
   );
 };

@@ -10,57 +10,76 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from "@mui/material";
 import { useState } from "react";
 import { month, monthlists } from "../../src/util";
 import ReactPaginate from "react-paginate";
-import { Box } from "@mui/system";
 import { css } from "@emotion/react";
 
-const sample = css`
+const pagenation = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
   gap: 20px 6px;
-  margin-top:2rem;
-
-  .previous,
-  .next {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 30px;
+  margin-top: 3rem;
+  li {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
     justify-content: center;
-    font-weight: 700;
-    font-size: 16px;
-    height: 40px;
-    width: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #fff;
+    border: solid 1px #1976d2;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #1976d2;
+    &.selected {
+      background: #1976d2;
+      color: #fff;
+      cursor: pointer;
+    }
+    a {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `;
 const RegisterTable = ({ postList }: List) => {
   // ページネーション
   const [selectmonth, setSelectMonth] = useState(month);
+  const [payment, setPayment] = useState("");
+
   const filterMatchMonth = () => {
     return postList.filter(
       (post) => format(post.date.toDate(), "yyyy年M月") === selectmonth
     );
   };
+  const filterPayments = () => {
+    if (!payment) return filterMatchMonth();
+    return filterMatchMonth().filter((post) => post.paymentsItem === payment);
+  };
   const itemsPerPage = 6;
   const [itemsOffset, setItemsOffset] = useState(0);
   const endOffset = itemsOffset + itemsPerPage;
-  const currentAlbums = filterMatchMonth().slice(itemsOffset, endOffset);
+  const currentAlbums = filterPayments().slice(itemsOffset, endOffset);
   const pageCount = Math.ceil(filterMatchMonth().length / itemsPerPage);
   const handlePageClick = (e: { selected: number }) => {
     const newOffset = (e.selected * itemsPerPage) % filterMatchMonth().length;
     setItemsOffset(newOffset);
   };
+  const paymentsdata = ["支出", "収入"];
   return (
     <>
       <Select
         value={selectmonth}
         onChange={(event) => setSelectMonth(event.target.value)}
-        sx={{background:"#ffffff",width:"300px"}}
+        sx={{ background: "#ffffff", width: "300px" }}
       >
         <MenuItem value={month}>{month}</MenuItem>
         {monthlists.map((month) => (
@@ -69,11 +88,23 @@ const RegisterTable = ({ postList }: List) => {
           </MenuItem>
         ))}
       </Select>
+      <Select
+        value={payment}
+        onChange={(event) => setPayment(event.target.value)}
+        sx={{ background: "#ffffff", width: "300px" }}
+      >
+        <MenuItem disabled>--選択--</MenuItem>
+        {paymentsdata.map((payment) => (
+          <MenuItem key={payment} value={payment}>
+            {payment}
+          </MenuItem>
+        ))}
+      </Select>
 
       <TableContainer
         sx={{
           p: "3rem",
-          mt:"1rem",
+          mt: "1rem",
           width: "100%",
           background: "#fff",
         }}
@@ -97,7 +128,9 @@ const RegisterTable = ({ postList }: List) => {
                     <TableCell sx={{ fontSize: 14 }}>
                       {format(date.toDate(), "yyyy.M.d")}
                     </TableCell>
-                    <TableCell sx={{ fontSize: 14 }}>{amount}</TableCell>
+                    <TableCell sx={{ fontSize: 14 }}>
+                      ¥{amount.toLocaleString()}
+                    </TableCell>
                     <TableCell sx={{ fontSize: 14 }}>{paymentsItem}</TableCell>
                     <TableCell sx={{ fontSize: 14 }}>{category}</TableCell>
                     <TableCell sx={{ fontSize: 14 }}>{method}</TableCell>
@@ -111,9 +144,10 @@ const RegisterTable = ({ postList }: List) => {
         <ReactPaginate
           pageCount={pageCount}
           onPageChange={handlePageClick}
-          css={sample}
+          css={pagenation}
           breakLabel="..."
-          nextLabel=">" previousLabel="<"
+          nextLabel="&gt;"
+          previousLabel="&lt;"
         />
       </TableContainer>
     </>

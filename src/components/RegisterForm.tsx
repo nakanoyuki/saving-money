@@ -24,7 +24,7 @@ import {
 
 const RegisterForm = () => {
   // データ
-  const paymentsdata = ["支出", "収入"];
+const paymentsdata = ["支出", "収入"];
   const categoriesdata = ["水道代", "その他"];
   const methodsdata = ["現金", "クレジット", "paypay"];
 
@@ -374,15 +374,15 @@ const RegisterForm = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "100%",
-            mt: "2rem",
+            width: "60%",
+            m: "3rem auto 0",
           }}
         >
           <Button
             sx={{
-              width: "48%",
+              width: "40%",
               fontSize: "1.2rem",
-              height: "60px",
+              height: "50px",
               p: "1rem",
               fontWeight: "bold",
               borderRadius: "50px",
@@ -397,9 +397,9 @@ const RegisterForm = () => {
             type="submit"
             variant="contained"
             sx={{
-              width: "48%",
+              width: "58%",
               fontSize: "1.6rem",
-              height: "60px",
+              height: "50px",
               p: "1rem",
               fontWeight: "bold",
               borderRadius: "50px",
@@ -414,12 +414,13 @@ const RegisterForm = () => {
             登録する
           </Button>
         </Box>
-        <Snackbar open={show} autoHideDuration={6000} onClose={handleClose}>
+   
+      </Box>
+      <Snackbar open={show} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success">
             登録が完了しました！
           </Alert>
         </Snackbar>
-      </Box>
     </>
   );
 };
