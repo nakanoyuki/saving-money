@@ -7,12 +7,9 @@ import { month, monthlists } from "../../src/util";
 const SpendingMoneyTable = () => {
   const { postList } = usePostList();
 
-
-
   return (
     <div className="pageArea">
-      <RegisterTable postList={postList}  />
-   
+      <RegisterTable postList={postList} />
     </div>
   );
 };

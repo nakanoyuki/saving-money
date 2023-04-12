@@ -15,6 +15,7 @@ import { useState } from "react";
 import { month, monthlists } from "../../src/util";
 import ReactPaginate from "react-paginate";
 import { css } from "@emotion/react";
+import { useForm } from "react-hook-form";
 
 const pagenation = css`
   display: flex;
@@ -50,18 +51,21 @@ const pagenation = css`
     }
   }
 `;
+
 const RegisterTable = ({ postList }: List) => {
-  // ページネーション
-  const [selectmonth, setSelectMonth] = useState(month);
-  const [payment, setPayment] = useState("");
+  const { register, watch } = useForm();
+
+  const selectmonth = watch("selectmonth");
+  const payment = watch("payment");
 
   const filterMatchMonth = () => {
+    if (!selectmonth) return postList;
     return postList.filter(
       (post) => format(post.date.toDate(), "yyyy年M月") === selectmonth
     );
   };
   const filterPayments = () => {
-    if (!payment) return filterMatchMonth();
+    if (payment === "全て") return filterMatchMonth();
     return filterMatchMonth().filter((post) => post.paymentsItem === payment);
   };
   const itemsPerPage = 6;
@@ -73,33 +77,37 @@ const RegisterTable = ({ postList }: List) => {
     const newOffset = (e.selected * itemsPerPage) % filterMatchMonth().length;
     setItemsOffset(newOffset);
   };
-  const paymentsdata = ["支出", "収入"];
+  const paymentsdata = ["全て", "支出", "収入"];
   return (
     <>
-      <Select
-        value={selectmonth}
-        onChange={(event) => setSelectMonth(event.target.value)}
-        sx={{ background: "#ffffff", width: "300px" }}
-      >
-        <MenuItem value={month}>{month}</MenuItem>
-        {monthlists.map((month) => (
-          <MenuItem value={month} key={month}>
-            {month}
-          </MenuItem>
-        ))}
-      </Select>
-      <Select
-        value={payment}
-        onChange={(event) => setPayment(event.target.value)}
-        sx={{ background: "#ffffff", width: "300px" }}
-      >
-        <MenuItem disabled>--選択--</MenuItem>
-        {paymentsdata.map((payment) => (
-          <MenuItem key={payment} value={payment}>
-            {payment}
-          </MenuItem>
-        ))}
-      </Select>
+      <form>
+        <Select
+          {...register("selectmonth")}
+          value={selectmonth}
+          defaultValue={month}
+          sx={{ background: "#ffffff", width: "300px" }}
+        >
+          <MenuItem value={month}>{month}</MenuItem>
+          {monthlists.map((month) => (
+            <MenuItem value={month} key={month}>
+              {month}
+            </MenuItem>
+          ))}
+        </Select>
+        <Select
+          {...register("payment")}
+          value={payment}
+          defaultValue={paymentsdata[0]}
+          sx={{ background: "#ffffff", width: "300px" }}
+        >
+          <MenuItem disabled>--選択--</MenuItem>
+          {paymentsdata.map((payment) => (
+            <MenuItem key={payment} value={payment}>
+              {payment}
+            </MenuItem>
+          ))}
+        </Select>
+      </form>
 
       <TableContainer
         sx={{
