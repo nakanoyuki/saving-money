@@ -21,12 +21,10 @@ import {
   TextareaAutosize,
   TextField,
 } from "@mui/material";
+import {paymentsdata,categoriesdata,methodsdata} from "../api/data"
 
 const RegisterForm = () => {
-  // データ
-const paymentsdata = ["支出", "収入"];
-  const categoriesdata = ["水道代", "その他"];
-  const methodsdata = ["現金", "クレジット", "paypay"];
+
 
   // Yupエラーハンドリング
   const Registerschema = yup.object().shape({
