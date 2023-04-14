@@ -71,7 +71,7 @@ const RegisterTable = ({ postList }: List) => {
   const itemsPerPage = 6;
   const [itemsOffset, setItemsOffset] = useState(0);
   const endOffset = itemsOffset + itemsPerPage;
-  const currentAlbums = filterPayments().slice(itemsOffset, endOffset);
+  const currentLists = filterPayments().slice(itemsOffset, endOffset);
   const pageCount = Math.ceil(filterMatchMonth().length / itemsPerPage);
   const handlePageClick = (e: { selected: number }) => {
     const newOffset = (e.selected * itemsPerPage) % filterMatchMonth().length;
@@ -129,23 +129,33 @@ const RegisterTable = ({ postList }: List) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {currentAlbums.map(
-              ({ date, amount, paymentsItem, category, method, memo }) => {
-                return (
-                  <TableRow key={uuid()}>
-                    <TableCell sx={{ fontSize: 14 }}>
-                      {format(date.toDate(), "yyyy.M.d")}
-                    </TableCell>
-                    <TableCell sx={{ fontSize: 14 }}>
-                      ¥{amount.toLocaleString()}
-                    </TableCell>
-                    <TableCell sx={{ fontSize: 14 }}>{paymentsItem}</TableCell>
-                    <TableCell sx={{ fontSize: 14 }}>{category}</TableCell>
-                    <TableCell sx={{ fontSize: 14 }}>{method}</TableCell>
-                    <TableCell sx={{ fontSize: 14 }}>{memo}</TableCell>
-                  </TableRow>
-                );
-              }
+            {currentLists.length > 0 ? (
+              currentLists.map(
+                ({ date, amount, paymentsItem, category, method, memo }) => {
+                  return (
+                    <TableRow key={uuid()}>
+                      <TableCell sx={{ fontSize: 14 }}>
+                        {format(date.toDate(), "yyyy.M.d")}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: 14 }}>
+                        ¥{amount.toLocaleString()}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: 14 }}>
+                        {paymentsItem}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: 14 }}>{category}</TableCell>
+                      <TableCell sx={{ fontSize: 14 }}>{method}</TableCell>
+                      <TableCell sx={{ fontSize: 14 }}>{memo}</TableCell>
+                    </TableRow>
+                  );
+                }
+              )
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} align="center">
+                  データがありません
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>
