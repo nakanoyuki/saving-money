@@ -1,6 +1,4 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { auth } from "../../firebase";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
@@ -15,13 +13,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
 import { useLoginForm } from "../../hooks/useLoginForm";
+import { FormValues } from "../../type/type";
 
-type FormValues = {
-  email: string;
-  password: string;
-};
+
 
 const Login = () => {
   const { user } = useAuthContext();
