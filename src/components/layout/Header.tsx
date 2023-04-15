@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../feature/auth/provider/AuthProvider";
+import { useAuthContext } from "../../hooks/auth/AuthProvider";
 import { css } from "@emotion/react";
 import SignOut from "../auth/SignOut";
 import logo from "../../img/logo.png";
@@ -23,7 +23,7 @@ const Header = () => {
     <AppBar>
       <Toolbar css={header}>
         <Link to="/home">
-          <img src={logo} alt="収支管理APP" width={100} height={42}/>
+          <img src={logo} alt="収支管理APP" width={100} height={42} />
         </Link>
 
         {user && (
@@ -41,7 +41,7 @@ const Header = () => {
             >
               マイページ
             </Button>
-            <SignOut/>
+            <SignOut />
           </div>
         )}
       </Toolbar>

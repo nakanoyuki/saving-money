@@ -2,7 +2,6 @@ import { useState } from "react";
 import * as React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import DatePicker from "react-datepicker";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase";
@@ -19,30 +18,12 @@ import {
   TextareaAutosize,
   TextField,
 } from "@mui/material";
-import {paymentsdata,categoriesdata,methodsdata} from "../api/data"
+import { paymentsdata, categoriesdata, methodsdata } from "../api/data";
+import { validation } from "../hooks/validation";
 
 const RegisterForm = () => {
-
-
   // Yupエラーハンドリング
-  const Registerschema = yup.object().shape({
-    amount: yup
-      .number()
-      .required("金額を入力してください")
-      .min(1, "金額を入力してください"),
-    paymentsItem: yup
-      .string()
-      .required()
-      .notOneOf(["--選択--"], "収支を選択してください"),
-    category: yup
-      .string()
-      .required()
-      .notOneOf(["--選択--"], "勘定科目を選択してください"),
-    method: yup
-      .string()
-      .required()
-      .notOneOf(["--選択--"], "支払い方法を選択してください"),
-  });
+  const { Registerschema } = validation();
 
   const {
     register,
@@ -64,6 +45,8 @@ const RegisterForm = () => {
     },
     resolver: yupResolver(Registerschema),
   });
+
+
   // 税率計算ボタン
   let [result, setResult] = useState<number>(0);
   const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
@@ -410,13 +393,12 @@ const RegisterForm = () => {
             登録する
           </Button>
         </Box>
-   
       </Box>
       <Snackbar open={show} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success">
-            登録が完了しました！
-          </Alert>
-        </Snackbar>
+        <Alert onClose={handleClose} severity="success">
+          登録が完了しました！
+        </Alert>
+      </Snackbar>
     </>
   );
 };

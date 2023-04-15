@@ -9,7 +9,7 @@ import SpendingMoneyReport from "./pages/SpendingMoneyReport";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 import Mypage from "./pages/Mypage";
-import { AuthProvider } from "./feature/auth/provider/AuthProvider";
+import { AuthProvider } from "./hooks/auth/AuthProvider";
 import DefaultLayout from "./components/templetes/DefaultLayout";
 
 /** @jsxImportSource @emotion/react */
@@ -69,28 +69,25 @@ function App() {
           }
         `}
       />
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Start />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route element={<DefaultLayout />}>
-              <Route path="/mypage" element={<Mypage />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/howtouse" element={<HowtoUse />} />
-              <Route
-                path="/spendingmoneyform"
-                element={<SpendingMoneyForm />}
-              />
-              <Route
-                path="/spendingmoneytable"
-                element={<SpendingMoneyTable />}
-              />
-              <Route path="/spendingreport" element={<SpendingMoneyReport />} />
-              <Route path="*" element={<NoMatch />} />
-            </Route>
-          </Routes>
-        </AuthProvider>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Start />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route element={<DefaultLayout />}>
+            <Route path="/mypage" element={<Mypage />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/howtouse" element={<HowtoUse />} />
+            <Route path="/spendingmoneyform" element={<SpendingMoneyForm />} />
+            <Route
+              path="/spendingmoneytable"
+              element={<SpendingMoneyTable />}
+            />
+            <Route path="/spendingreport" element={<SpendingMoneyReport />} />
+            <Route path="*" element={<NoMatch />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </>
   );
 }

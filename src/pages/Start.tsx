@@ -1,7 +1,7 @@
 import { Button, Typography, Box } from "@mui/material";
 import { Container, css } from "@mui/system";
 import LayoutTop from "../components/templetes/LayoutTop";
-import { useAuthContext } from "../feature/auth/provider/AuthProvider";
+import { useAuthContext } from "../hooks/auth/AuthProvider";
 import kvImg from "../img/kvImg.svg";
 
 const kvArea = css`
