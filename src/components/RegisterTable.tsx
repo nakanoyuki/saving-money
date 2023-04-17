@@ -16,6 +16,7 @@ import { month, monthlists } from "../../src/util";
 import ReactPaginate from "react-paginate";
 import { css } from "@emotion/react";
 import { useForm } from "react-hook-form";
+import { selectpaymentsdata } from "../api/data";
 
 const pagenation = css`
   display: flex;
@@ -77,7 +78,6 @@ const RegisterTable = ({ postList }: List) => {
     const newOffset = (e.selected * itemsPerPage) % filterMatchMonth().length;
     setItemsOffset(newOffset);
   };
-  const paymentsdata = ["全て", "支出", "収入"];
   return (
     <>
       <form>
@@ -97,11 +97,11 @@ const RegisterTable = ({ postList }: List) => {
         <Select
           {...register("payment")}
           value={payment}
-          defaultValue={paymentsdata[0]}
+          defaultValue={selectpaymentsdata[0]}
           sx={{ background: "#ffffff", width: "300px" }}
         >
           <MenuItem disabled>--選択--</MenuItem>
-          {paymentsdata.map((payment) => (
+          {selectpaymentsdata.map((payment) => (
             <MenuItem key={payment} value={payment}>
               {payment}
             </MenuItem>
