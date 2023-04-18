@@ -71,7 +71,7 @@ const Home = () => {
           ({ date, amount, paymentsItem, category, method, memo }) => {
             return (
               <>
-               <p>今月({format(date.toDate(), "yyyy年M月")})の収支</p>
+                <p>今月({format(date.toDate(), "yyyy年M月")})の収支</p>
                 <TableContainer
                   sx={{
                     p: "3rem",
@@ -81,7 +81,6 @@ const Home = () => {
                   }}
                 >
                   <Table>
-                   
                     <TableHead>
                       <TableRow>
                         <TableCell sx={{ fontSize: 14 }}>金額</TableCell>
