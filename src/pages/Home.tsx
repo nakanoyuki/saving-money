@@ -72,14 +72,7 @@ const Home = () => {
             return (
               <>
                 <p>今月({format(date.toDate(), "yyyy年M月")})の収支</p>
-                <TableContainer
-                  sx={{
-                    p: "3rem",
-                    mt: "1rem",
-                    width: "100%",
-                    background: "#fff",
-                  }}
-                >
+                <TableContainer>
                   <Table>
                     <TableHead>
                       <TableRow>
