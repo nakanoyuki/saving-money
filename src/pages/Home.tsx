@@ -19,7 +19,6 @@ import { useForm } from "react-hook-form";
 import { selectpaymentsdata } from "../api/data";
 import { usePostList } from "../hooks/usePostList";
 
-
 const pagenation = css`
   display: flex;
   align-items: center;
@@ -67,57 +66,59 @@ const Home = () => {
 
   return (
     <>
-      <TableContainer
-        sx={{
-          p: "3rem",
-          mt: "1rem",
-          width: "100%",
-          background: "#fff",
-        }}
-      >
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontSize: 14 }}>取引日</TableCell>
-              <TableCell sx={{ fontSize: 14 }}>金額</TableCell>
-              <TableCell sx={{ fontSize: 14 }}>収支</TableCell>
-              <TableCell sx={{ fontSize: 14 }}>カテゴリー</TableCell>
-              <TableCell sx={{ fontSize: 14 }}>支払い方法</TableCell>
-              <TableCell sx={{ fontSize: 14 }}>備考</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {currentLists.length > 0 ? (
-              currentLists.map(
-                ({ date, amount, paymentsItem, category, method, memo }) => {
-                  return (
-                    <TableRow key={uuid()}>
-                      <TableCell sx={{ fontSize: 14 }}>
-                        {format(date.toDate(), "yyyy年M月")}
-                      </TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>
-                        ¥{amount.toLocaleString()}
-                      </TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>
-                        {paymentsItem}
-                      </TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>{category}</TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>{method}</TableCell>
-                      <TableCell sx={{ fontSize: 14 }}>{memo}</TableCell>
-                    </TableRow>
-                  );
-                }
-              )
-            ) : (
+      {currentLists.length > 0 ? (
+        currentLists.map(
+          ({ date, amount, paymentsItem, category, method, memo }) => {
+            return (
+              <>
+               <p>今月({format(date.toDate(), "yyyy年M月")})の収支</p>
+                <TableContainer
+                  sx={{
+                    p: "3rem",
+                    mt: "1rem",
+                    width: "100%",
+                    background: "#fff",
+                  }}
+                >
+                  <Table>
+                   
+                    <TableHead>
+                      <TableRow>
+                        <TableCell sx={{ fontSize: 14 }}>金額</TableCell>
+                        <TableCell sx={{ fontSize: 14 }}>収支</TableCell>
+                        <TableCell sx={{ fontSize: 14 }}>カテゴリー</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow key={uuid()}>
+                        <TableCell sx={{ fontSize: 14 }}>
+                          ¥{amount.toLocaleString()}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: 14 }}>
+                          {paymentsItem}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: 14 }}>{category}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </>
+            );
+          }
+        )
+      ) : (
+        <>
+          <Table>
+            <TableBody>
               <TableRow>
                 <TableCell colSpan={6} align="center">
                   データがありません
                 </TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableBody>
+          </Table>
+        </>
+      )}
     </>
   );
 };
