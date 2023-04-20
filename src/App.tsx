@@ -74,7 +74,7 @@ function App() {
           <Route path="/" element={<Start />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route element={<DefaultLayout />}>
+          {/* <Route element={<DefaultLayout />}>
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/home" element={<Home />} />
             <Route path="/howtouse" element={<HowtoUse />} />
@@ -85,7 +85,7 @@ function App() {
             />
             <Route path="/spendingreport" element={<SpendingMoneyReport />} />
             <Route path="*" element={<NoMatch />} />
-          </Route>
+          </Route> */}
         </Routes>
       </AuthProvider>
     </>
