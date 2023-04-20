@@ -40,9 +40,9 @@ const Start = () => {
               <p css={{ fontSize: "1.6rem" }}>
                 Spending Moneyは日々の収支の記録を記録できるアプリです。
               </p>
-              <Link to="/signup">
+             
               <Button
-                // href="/signup"
+                href="/signup"
                 sx={{
                   border: "solid 2px #4169e1",
                   background: "#ffffff",
@@ -55,7 +55,7 @@ const Start = () => {
               >
                 新規アカウントを作成する
               </Button>
-              </Link>
+             
             </Box>
             <Box
               sx={{
