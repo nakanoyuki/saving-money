@@ -1,7 +1,4 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { FormValues } from "../type/type";
 
 export const validation = () => {
   // Yupのバリデーションを分離し、再利用しやすく

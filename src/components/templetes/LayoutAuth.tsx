@@ -1,8 +1,7 @@
-import React from "react";
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
 import { css } from "@emotion/react";
 import { ChildrenProps } from "../../type/type";
+import HeaderTop from "../layout/HeaderTop";
 
 const mainheight = css`
   height: 94vh;
@@ -14,7 +13,7 @@ const LayoutAuth = (props: ChildrenProps) => {
   const { children } = props;
   return (
     <>
-      <Header />
+      <HeaderTop />
       <main css={mainheight}>{children}</main>
       <Footer />
     </>

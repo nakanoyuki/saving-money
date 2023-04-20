@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../../firebase";
-import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/auth/AuthProvider";
 import { css } from "@emotion/react";
 import SignOut from "../auth/SignOut";
 import logo from "../../img/logo.png";
-import { AppBar, Button, Toolbar, Box } from "@mui/material";
+import { AppBar, Button, Toolbar } from "@mui/material";
 
 const header = css`
   display: flex;

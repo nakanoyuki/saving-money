@@ -15,7 +15,7 @@ const HeaderTop = () => {
   return (
     <AppBar>
       <Toolbar css={header}>
-        <Link to="/home">
+        <Link to="/">
           <img src={logo} alt="収支管理APP" width="100" height="42"/>
         </Link>
         <div>

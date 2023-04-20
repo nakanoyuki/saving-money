@@ -1,8 +1,4 @@
-import { css } from "@emotion/react";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect } from "react";
 import TotalTable from "../components/paymentTable/TotalTable";
-import { db } from "../firebase";
 import { useExpensePostList, useIncomePostList } from "../hooks/usePostList";
 
 const SpendingMoneyReport = () => {

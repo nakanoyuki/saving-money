@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 import logo from "../../img/logo.png";
@@ -20,7 +19,6 @@ const imgSize = css`
 const Footer = () => {
   return (
     <footer css={footercenter}>
-      {/* <Typography> */}
       <Link to="/home">
         <Box
           sx={{
@@ -34,8 +32,6 @@ const Footer = () => {
           <img src={logo} css={imgSize} alt="収支管理APP" width="60" />
         </Box>
       </Link>
-      {/* </Typography> */}
-      {/* <Footer css={footercenter}>Powered by Nakano</Footer> */}
     </footer>
   );
 };

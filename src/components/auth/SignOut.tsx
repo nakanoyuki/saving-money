@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/auth/AuthProvider";
 import { Button } from "@mui/material";
 
