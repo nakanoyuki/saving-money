@@ -16,8 +16,11 @@ import DefaultLayout from "./components/templetes/DefaultLayout";
 import emotionReset from "emotion-reset";
 import { Global, css } from "@emotion/react";
 import Start from "./pages/Start";
+import { useExpensePostList, useIncomePostList } from "./hooks/usePostList";
 
 function App() {
+  const { expensePostList } = useExpensePostList();
+  const { incomePostList } = useIncomePostList();
   return (
     <>
       <Global
@@ -76,7 +79,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route element={<DefaultLayout />}>
             <Route path="/mypage" element={<Mypage />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Home expensePostList={expensePostList} incomePostList={incomePostList}/>} />
             <Route path="/howtouse" element={<HowtoUse />} />
             <Route path="/spendingmoneyform" element={<SpendingMoneyForm />} />
             <Route

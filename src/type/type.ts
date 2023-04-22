@@ -2,8 +2,6 @@ export type List = {
   postList: FormType[];
 };
 export type ExpenseIncome = {
-  // expensepostList: FormType[];
-  // incomepostList: FormType[];
   date:any
   amount: number;
   paymentsItem: string
@@ -27,4 +25,9 @@ export type FormType = {
 export type FormValues = {
   email: string;
   password: string;
+};
+
+export type TotalTableProps = {
+  expensePostList: ExpenseIncome[];
+  incomePostList: ExpenseIncome[];
 };

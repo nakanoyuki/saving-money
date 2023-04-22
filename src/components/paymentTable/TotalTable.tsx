@@ -1,5 +1,5 @@
 import uuid from "react-uuid";
-import { ExpenseIncome } from "../../type/type";
+import { ExpenseIncome, TotalTableProps } from "../../type/type";
 import {
   Table,
   TableBody,
@@ -9,11 +9,6 @@ import {
   TableRow,
 } from "@mui/material";
 import { groupByMonth } from "../../util";
-
-type TotalTableProps = {
-  expensePostList: ExpenseIncome[];
-  incomePostList: ExpenseIncome[];
-};
 
 const TotalTable = ({ expensePostList, incomePostList }: TotalTableProps) => {
   const groups = groupByMonth(expensePostList, incomePostList);
