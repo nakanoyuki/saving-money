@@ -19,8 +19,6 @@ import Start from "./pages/Start";
 import { useExpensePostList, useIncomePostList } from "./hooks/usePostList";
 
 function App() {
-  const { expensePostList } = useExpensePostList();
-  const { incomePostList } = useIncomePostList();
   return (
     <>
       <Global
@@ -79,7 +77,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route element={<DefaultLayout />}>
             <Route path="/mypage" element={<Mypage />} />
-            <Route path="/home" element={<Home expensePostList={expensePostList} incomePostList={incomePostList}/>} />
+            <Route path="/home" element={<Home/>} />
             <Route path="/howtouse" element={<HowtoUse />} />
             <Route path="/spendingmoneyform" element={<SpendingMoneyForm />} />
             <Route

@@ -66,7 +66,10 @@ const TotalTable = ({ expensePostList, incomePostList }: TotalTableProps) => {
                     {month}
                   </TableCell>
                   <TableCell sx={{ fontSize: 14, width: "20%", color }}>
-                    {PlusMinussymbol}¥{sum >= 0 ? sum.toLocaleString() : `${Math.abs(sum).toLocaleString()}`}
+                    {PlusMinussymbol}¥
+                    {sum >= 0
+                      ? sum.toLocaleString()
+                      : `${Math.abs(sum).toLocaleString()}`}
                   </TableCell>
                   <TableCell
                     sx={{ fontSize: 14, width: "20%", color: "#1976d2" }}
