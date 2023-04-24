@@ -1,5 +1,5 @@
 // データ
-export const paymentsdata = ["支出", "収入"];
+export const paymentsdata = ["支出", "収入"] as const;
 export const selectpaymentsdata = ["全て","支出", "収入"];
 export const categoriesdata = [
   "水道光熱費",

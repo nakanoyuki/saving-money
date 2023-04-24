@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { usePostList } from "../hooks/usePostList";
+import { paymentsdata } from "../api/data";
 
 const Home = () => {
   const { postList } = usePostList();
@@ -19,6 +20,19 @@ const Home = () => {
   const currentLists = postList.filter((post) => {
     return format(post.date.toDate(), "M月") === `${month}月`;
   });
+
+  console.log(currentLists);
+
+  const calc = ({
+    amount,
+    paymentsItem,
+  }: {
+    amount: number;
+    paymentsItem: string;
+  }) => {
+    const [income, expense] = paymentsdata;
+    return currentLists.
+  };
 
   return (
     <>
