@@ -23,16 +23,16 @@ const Home = () => {
 
   console.log(currentLists);
 
-  const calc = ({
-    amount,
-    paymentsItem,
-  }: {
-    amount: number;
-    paymentsItem: string;
-  }) => {
-    const [income, expense] = paymentsdata;
-    return currentLists.
-  };
+  // const calc = ({
+  //   amount,
+  //   paymentsItem,
+  // }: {
+  //   amount: number;
+  //   paymentsItem: string;
+  // }) => {
+  //   const [income, expense] = paymentsdata;
+  //   return currentLists.
+  // };
 
   return (
     <>
