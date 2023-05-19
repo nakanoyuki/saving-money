@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import {
   Alert,
   Box,
+  css,
   FormHelperText,
   InputLabel,
   MenuItem,
@@ -45,7 +46,6 @@ const RegisterForm = () => {
     },
     resolver: yupResolver(Registerschema),
   });
-
 
   // 税率計算ボタン
   let [result, setResult] = useState<number>(0);
@@ -112,10 +112,7 @@ const RegisterForm = () => {
             }}
           >
             <Box>
-              <InputLabel
-                htmlFor="date"
-                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
-              >
+              <InputLabel htmlFor="date" sx={{ fontSize: 14, color: "#333" }}>
                 購入日時
               </InputLabel>
               <Controller
@@ -135,7 +132,7 @@ const RegisterForm = () => {
             <Box sx={{ ml: "2rem" }}>
               <InputLabel
                 htmlFor="paymentsItem"
-                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+                sx={{ fontSize: 14, color: "#333" }}
               >
                 収支
               </InputLabel>
@@ -154,9 +151,15 @@ const RegisterForm = () => {
                     select
                     sx={{ background: "#ffffff", width: "300px" }}
                   >
-                    <MenuItem disabled>--選択--</MenuItem>
+                    <MenuItem sx={{ fontSize: 12 }} disabled>
+                      --選択--
+                    </MenuItem>
                     {paymentsdata.map((payment) => (
-                      <MenuItem key={payment} value={payment}>
+                      <MenuItem
+                        sx={{ fontSize: 12 }}
+                        key={payment}
+                        value={payment}
+                      >
                         {payment}
                       </MenuItem>
                     ))}
@@ -171,7 +174,7 @@ const RegisterForm = () => {
             <Box sx={{ ml: "2rem" }}>
               <InputLabel
                 htmlFor="category"
-                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
+                sx={{ fontSize: 14, color: "#333" }}
               >
                 勘定科目
               </InputLabel>
@@ -189,10 +192,17 @@ const RegisterForm = () => {
                     error={!!errors.category}
                     select
                     sx={{ background: "#ffffff", width: "300px" }}
+                    inputProps={{ style: { fontSize: 14 } }}
                   >
-                    <MenuItem disabled>--選択--</MenuItem>
+                    <MenuItem sx={{ fontSize: 12 }} disabled>
+                      --選択--
+                    </MenuItem>
                     {categoriesdata.map((category) => (
-                      <MenuItem key={category} value={category}>
+                      <MenuItem
+                        sx={{ fontSize: 12 }}
+                        key={category}
+                        value={category}
+                      >
                         {category}
                       </MenuItem>
                     ))}
@@ -215,10 +225,7 @@ const RegisterForm = () => {
             }}
           >
             <Box>
-              <InputLabel
-                htmlFor="method"
-                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
-              >
+              <InputLabel htmlFor="method" sx={{ fontSize: 14, color: "#333" }}>
                 支払い方法
               </InputLabel>
               <Controller
@@ -235,10 +242,17 @@ const RegisterForm = () => {
                     error={!!errors.method}
                     select
                     sx={{ background: "#ffffff", width: "300px" }}
+                    inputProps={{ style: { fontSize: 14 } }}
                   >
-                    <MenuItem disabled>--選択--</MenuItem>
+                    <MenuItem sx={{ fontSize: 12 }} disabled>
+                      --選択--
+                    </MenuItem>
                     {methodsdata.map((method) => (
-                      <MenuItem key={method} value={method}>
+                      <MenuItem
+                        sx={{ fontSize: 12 }}
+                        key={method}
+                        value={method}
+                      >
                         {method}
                       </MenuItem>
                     ))}
@@ -251,10 +265,7 @@ const RegisterForm = () => {
             </Box>
 
             <Box sx={{ ml: "2rem", width: "400px" }}>
-              <InputLabel
-                htmlFor="amount"
-                sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
-              >
+              <InputLabel htmlFor="amount" sx={{ fontSize: 14, color: "#333" }}>
                 金額
               </InputLabel>
               <Box
@@ -274,9 +285,11 @@ const RegisterForm = () => {
                   sx={{
                     background: "#ffffff",
                     width: "80%",
+                    fontSize: 14,
                   }}
+                  inputProps={{ style: { fontSize: 14 } }}
                 />
-                <Box sx={{ fontSize: "1.4rem" }}>円</Box>
+                <Box sx={{ fontSize: 14 }}>円</Box>
               </Box>
               <FormHelperText sx={{ color: "red" }}>
                 {errors.amount?.message}
@@ -289,7 +302,7 @@ const RegisterForm = () => {
                   justifyContent: "space-between",
                   width: "100%",
                   mt: "1rem",
-                  fontSize: "1.4rem",
+                  fontSize: 14,
                 }}
               >
                 <Box>
@@ -326,10 +339,7 @@ const RegisterForm = () => {
               mt: "1rem",
             }}
           >
-            <InputLabel
-              htmlFor="memo"
-              sx={{ fontSize: "1.4rem", fontWeight: "bold" }}
-            >
+            <InputLabel htmlFor="memo" sx={{ fontSize: 14, color: "#333" }}>
               備考
             </InputLabel>
             <TextareaAutosize
@@ -360,7 +370,7 @@ const RegisterForm = () => {
           <Button
             sx={{
               width: "40%",
-              fontSize: "1.2rem",
+              fontSize: 12,
               height: "50px",
               p: "1rem",
               fontWeight: "bold",

@@ -18,7 +18,7 @@ export const useAuth = () => {
   };
 
   // Google新規登録
-  const googleSignUp = async (): Promise<void> => {
+  const googleSignUp = async () => {
     try {
       await signInWithPopup(auth, provider).then((result) => {
         localStorage.setItem("isAuth", "true");
@@ -31,6 +31,17 @@ export const useAuth = () => {
   };
 
 
+  const onClickGuestButton = async ()  => {
+    const guestEmail = "guest@dummy.com";
+		const guestPassword = "guestdummy";
+    try {
+      setIsLoading(true);
+      await signInWithEmailAndPassword(auth, guestEmail, guestPassword);
+    } catch (error) {
+      alert("正しく入力してください");
+    }
+    setIsLoading(false);
+  };
 
-  return { emailLogin, googleSignUp, isLoading };
+  return { emailLogin, googleSignUp, onClickGuestButton, isLoading };
 };

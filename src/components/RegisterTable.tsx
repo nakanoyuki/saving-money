@@ -85,11 +85,13 @@ const RegisterTable = ({ postList }: List) => {
           {...register("selectmonth")}
           value={selectmonth}
           defaultValue={month}
-          sx={{ background: "#ffffff", width: "300px" }}
+          sx={{ fontSize: 12, background: "#ffffff", width: "300px" }}
         >
-          <MenuItem value={month}>{month}</MenuItem>
+          <MenuItem sx={{ fontSize: 12 }} value={month}>
+            {month}
+          </MenuItem>
           {monthlists.map((month) => (
-            <MenuItem value={month} key={month}>
+            <MenuItem sx={{ fontSize: 12 }} value={month} key={month}>
               {month}
             </MenuItem>
           ))}
@@ -98,11 +100,11 @@ const RegisterTable = ({ postList }: List) => {
           {...register("payment")}
           value={payment}
           defaultValue={selectpaymentsdata[0]}
-          sx={{ background: "#ffffff", width: "300px" }}
+          sx={{  fontSize: 12,background: "#ffffff", width: "300px",ml:2 }}
         >
-          <MenuItem disabled>--選択--</MenuItem>
+          <MenuItem sx={{ fontSize: 12 }} disabled>--選択--</MenuItem>
           {selectpaymentsdata.map((payment) => (
-            <MenuItem key={payment} value={payment}>
+            <MenuItem sx={{ fontSize: 12 }} key={payment} value={payment}>
               {payment}
             </MenuItem>
           ))}
@@ -111,8 +113,8 @@ const RegisterTable = ({ postList }: List) => {
 
       <TableContainer
         sx={{
-          p: "3rem",
-          mt: "1rem",
+          p:3,
+          mt: 4,
           width: "100%",
           background: "#fff",
         }}
@@ -152,7 +154,7 @@ const RegisterTable = ({ postList }: List) => {
               )
             ) : (
               <TableRow>
-                <TableCell colSpan={6} align="center">
+                <TableCell sx={{ fontSize: 12 }} colSpan={6} align="center">
                   データがありません
                 </TableCell>
               </TableRow>

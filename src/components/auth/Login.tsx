@@ -17,11 +17,14 @@ import { validation } from "../../hooks/validation";
 import { useForm } from "react-hook-form";
 import { FormValues } from "../../type/type";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useState } from "react";
 
 const Login = () => {
   const { user } = useAuthContext();
 
-  const { emailLogin, googleSignUp, isLoading } = useAuth();
+  const { emailLogin, googleSignUp, onClickGuestButton, isLoading } = useAuth();
   const { Loginschema } = validation();
   const {
     register,
@@ -119,6 +122,10 @@ const Login = () => {
 
                     <Button onClick={googleSignUp}>
                       Googleアカウントでログイン
+                    </Button>
+
+                    <Button onClick={onClickGuestButton}>
+                      ゲストユーザーとしてログイン
                     </Button>
 
                     <Stack textAlign="center" fontSize="14px" color="#64A2D7">

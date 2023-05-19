@@ -4,9 +4,6 @@ import ja from "date-fns/locale/ja";
 
 import RegisterForm from "../components/RegisterForm";
 
-const formStyle = css`
-  
-`;
 const SpendingMoneyForm = () => {
   registerLocale("ja", ja);
 

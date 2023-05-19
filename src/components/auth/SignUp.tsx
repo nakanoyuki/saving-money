@@ -20,7 +20,7 @@ import { useAuth } from "../../hooks/auth/useAuth";
 
 const SignUp = () => {
   const { user } = useAuthContext();
-  const { emailLogin, googleSignUp, isLoading } = useAuth();
+  const { emailLogin, googleSignUp,onClickGuestButton, isLoading } = useAuth();
   const { Loginschema } = validation();
 
   const {
@@ -119,6 +119,10 @@ const SignUp = () => {
 
                     <Button onClick={googleSignUp}>
                       Googleアカウントで新規登録
+                    </Button>
+
+                    <Button onClick={onClickGuestButton}>
+                      ゲストユーザーとしてログイン
                     </Button>
 
                     <Stack textAlign="center" fontSize="14px" color="#64A2D7">
